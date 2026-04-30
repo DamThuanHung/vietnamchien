@@ -514,3 +514,31 @@ layout_mode = 2
 [node name="DanhSachB" type="VBoxContainer" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
 layout_mode = 2
 theme_override_constants/separation = 4
+
+[node name="DuongKeKetQua" type="HSeparator" parent="BangDiem/VBox"]
+layout_mode = 2
+visible = false
+
+[node name="TieuDeKetQua" type="Label" parent="BangDiem/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.3, 1.0, 0.4, 1)
+visible = false
+
+[node name="DongDemNguoc" type="Label" parent="BangDiem/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+visible = false
+
+[node name="NutVeMenu" type="Button" parent="BangDiem/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 44)
+size_flags_horizontal = 4
+text = "VỀ MENU CHÍNH"
+theme_override_font_sizes/font_size = 16
+visible = false

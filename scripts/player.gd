@@ -64,6 +64,22 @@ func _input(event):
 		$HUD.hien_thong_bao_nhanh("[TEST] +5000$")
 		return
 
+	# [DEBUG ONLY] F2 = thắng trận luôn để test bảng kết quả
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and event.keycode == KEY_F2:
+		var rm = get_tree().get_first_node_in_group("round_manager")
+		if rm:
+			rm.diem_doi_a = rm.SO_THANG_DE_WIN - 1
+			rm.ket_thuc_hieu_p("A")
+		return
+
+	# [DEBUG ONLY] F3 = thua trận luôn để test bảng kết quả
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and event.keycode == KEY_F3:
+		var rm = get_tree().get_first_node_in_group("round_manager")
+		if rm:
+			rm.diem_doi_b = rm.SO_THANG_DE_WIN - 1
+			rm.ket_thuc_hieu_p("B")
+		return
+
 	if get_tree().paused:
 		return
 

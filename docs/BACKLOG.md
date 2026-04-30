@@ -25,7 +25,6 @@
 | 9 | Enemy phân team/faction (VN/Mỹ/Pháp) — visual khác | 1.5 giờ |
 | 10 | Enemy biết mua súng theo economy | 2 giờ |
 | 11 | Enemy biết đặt/gỡ bom | 2 giờ |
-| 12 | Bảng kết quả cuối trận | 1.5 giờ |
 | 13 | Settings menu (âm lượng, sensitivity, keybind) | 2 giờ |
 | 14 | Build Windows test | 1 giờ |
 
@@ -66,3 +65,4 @@
 - ✅ Sửa lỗi: súng xoay theo chuột khi mở menu mua súng *(session 30/04)*
 - ✅ Đổi menu chính làm cảnh khởi động (F5 → menu chính) *(session 30/04)*
 - ✅ Bảng điểm (Tab) đầy đủ: tỷ số đội + danh sách người chơi + tổng địch *(session 30/04)*
+- ✅ Bảng kết quả cuối trận: tiêu đề thắng/thua + nút về menu + đếm ngược 15s *(session 30/04)*

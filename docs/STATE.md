@@ -87,7 +87,7 @@
 | Pause menu (ESC) | ✅ Done | [pause_menu.gd](../scripts/pause_menu.gd) |
 | Buy menu (B) | ✅ Done | [buy_menu.gd](../scripts/buy_menu.gd) |
 | Settings (âm lượng, sensitivity) | ❌ Chưa | |
-| Bảng kết quả cuối trận | ❌ Chưa | |
+| Bảng kết quả cuối trận | ✅ Done | Hiện bảng điểm + tiêu đề thắng/thua + đếm ngược 15s + nút về menu |
 
 ### Map
 | Tên | Trạng thái | File |

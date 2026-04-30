@@ -45,6 +45,14 @@ var tong_dich_lon_nhat = 0
 @onready var ty_tan_label = $BangDiem/VBox/TyTan
 @onready var danh_sach_a = $BangDiem/VBox/HBoxCot/ColDoiA/DanhSachA
 @onready var danh_sach_b = $BangDiem/VBox/HBoxCot/ColDoiB/DanhSachB
+@onready var duong_ke_ket_qua = $BangDiem/VBox/DuongKeKetQua
+@onready var tieu_de_ket_qua = $BangDiem/VBox/TieuDeKetQua
+@onready var dong_dem_nguoc = $BangDiem/VBox/DongDemNguoc
+@onready var nut_ve_menu = $BangDiem/VBox/NutVeMenu
+
+const THOI_GIAN_CHO_VE_MENU = 15
+var dang_o_ket_qua = false
+var thoi_gian_dem_nguoc = 0
 
 func _ready():
 	man_hinh_chet.visible = false
@@ -53,6 +61,7 @@ func _ready():
 	khu_bom.visible = false
 	khu_go_bom.visible = false
 	bang_diem.visible = false
+	nut_ve_menu.pressed.connect(_ve_menu_chinh)
 	nhan_hint.text = ""
 	cap_nhat_hud()
 
@@ -198,9 +207,49 @@ func cap_nhat_tien(so_tien: int):
 		_ve_bang_diem()
 
 func hien_bang_diem(hien: bool):
+	# Khi đang ở chế độ kết quả cuối trận, không cho ẩn bảng bằng Tab
+	if dang_o_ket_qua:
+		return
 	bang_diem.visible = hien
 	if hien:
 		_ve_bang_diem()
+
+func hien_bang_ket_qua(doi_thang: String):
+	dang_o_ket_qua = true
+	bang_diem.visible = true
+	_ve_bang_diem()
+
+	duong_ke_ket_qua.visible = true
+	tieu_de_ket_qua.visible = true
+	dong_dem_nguoc.visible = true
+	nut_ve_menu.visible = true
+
+	if doi_thang == "A":
+		tieu_de_ket_qua.text = "🎉  ĐỘI A — VIỆT NAM CHIẾN THẮNG  🎉"
+		tieu_de_ket_qua.add_theme_color_override("font_color", Color(0.3, 1.0, 0.4, 1))
+	else:
+		tieu_de_ket_qua.text = "ĐỘI B THẮNG"
+		tieu_de_ket_qua.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3, 1))
+
+	# Thả chuột để bấm nút
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	# Đếm ngược tự động về menu
+	thoi_gian_dem_nguoc = THOI_GIAN_CHO_VE_MENU
+	_chay_dem_nguoc()
+
+func _chay_dem_nguoc():
+	while thoi_gian_dem_nguoc > 0 and dang_o_ket_qua:
+		dong_dem_nguoc.text = "Tự về menu chính sau %d giây" % thoi_gian_dem_nguoc
+		await get_tree().create_timer(1.0).timeout
+		thoi_gian_dem_nguoc -= 1
+	if dang_o_ket_qua:
+		_ve_menu_chinh()
+
+func _ve_menu_chinh():
+	dang_o_ket_qua = false
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _ve_bang_diem():
 	# Cập nhật dòng tỷ số

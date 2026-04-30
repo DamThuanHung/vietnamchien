@@ -79,12 +79,8 @@ func _ket_thuc_game():
 	var nguoi_choi = get_tree().get_first_node_in_group("nguoi_choi")
 	if nguoi_choi:
 		var hud = nguoi_choi.get_node_or_null("HUD")
-		if hud:
-			var thong_bao = "BẠN ĐÃ THẮNG! 🎉" if doi_thang == "A" else "BẠN ĐÃ THUA!"
-			var mau = Color(0.2, 1.0, 0.3) if doi_thang == "A" else Color(1.0, 0.2, 0.2)
-			hud.hien_thong_bao(thong_bao, mau)
-	await get_tree().create_timer(6.0).timeout
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		if hud and hud.has_method("hien_bang_ket_qua"):
+			hud.hien_bang_ket_qua(doi_thang)
 
 func _an_bom_hud():
 	var nguoi_choi = get_tree().get_first_node_in_group("nguoi_choi")
