@@ -1,0 +1,386 @@
+[gd_scene format=3 uid="uid://hud001"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.08, 0.08, 0.08, 0.85)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chet"]
+bg_color = Color(0.6, 0.0, 0.0, 0.75)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kill_bg"]
+bg_color = Color(0.0, 0.0, 0.0, 0.5)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bom_bg"]
+bg_color = Color(0.35, 0.0, 0.0, 0.92)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+border_width_bottom = 2
+border_width_top = 2
+border_width_left = 2
+border_width_right = 2
+border_color = Color(0.9, 0.2, 0.0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bom_fill"]
+bg_color = Color(1.0, 0.15, 0.0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_go_fill"]
+bg_color = Color(0.2, 0.6, 1.0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tien_bg"]
+bg_color = Color(0.0, 0.12, 0.0, 0.82)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="CrosshairV" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -8.0
+offset_right = 1.0
+offset_bottom = 8.0
+color = Color(0.9, 0.9, 0.9, 0.85)
+
+[node name="CrosshairH" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -1.0
+offset_right = 8.0
+offset_bottom = 1.0
+color = Color(0.9, 0.9, 0.9, 0.85)
+
+[node name="CrosshairDot" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = -1.5
+offset_right = 1.5
+offset_bottom = 1.5
+color = Color(0.9, 0.9, 0.9, 0.85)
+
+[node name="KhungMau" type="PanelContainer" parent="."]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -65.0
+offset_right = 200.0
+offset_bottom = -20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="KhungMau"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ChuSoMau" type="Label" parent="KhungMau/VBoxContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ThanhMau" type="ProgressBar" parent="KhungMau/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 10)
+max_value = 100.0
+value = 100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+show_percentage = false
+
+[node name="LabelTien" type="Label" parent="."]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = -70.0
+text = "$800"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3, 1.0, 0.4, 1)
+
+[node name="KhuKill" type="PanelContainer" parent="."]
+anchors_preset = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -65.0
+offset_right = -20.0
+offset_bottom = -20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="VBox" type="VBoxContainer" parent="KhuKill"]
+layout_mode = 2
+
+[node name="NhanKill" type="Label" parent="KhuKill/VBox"]
+layout_mode = 2
+text = "KILLS"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+
+[node name="SoKill" type="Label" parent="KhuKill/VBox"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+
+[node name="KillFeed" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -280.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 200.0
+
+[node name="KhuDan" type="VBoxContainer" parent="."]
+anchors_preset = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -130.0
+offset_right = -20.0
+offset_bottom = -70.0
+
+[node name="TenSung" type="Label" parent="KhuDan"]
+layout_mode = 2
+text = "AK-47"
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="Dan" type="Label" parent="KhuDan"]
+layout_mode = 2
+text = "30 / 30"
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="KhuTrung" type="HBoxContainer" parent="."]
+anchors_preset = 9
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -160.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 55.0
+theme_override_constants/separation = 16
+
+[node name="DiemDoiA" type="Label" parent="KhuTrung"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.3, 0.7, 1.0, 1)
+
+[node name="SoHieuP" type="Label" parent="KhuTrung"]
+layout_mode = 2
+text = "1"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+
+[node name="ThoiGian" type="Label" parent="KhuTrung"]
+layout_mode = 2
+text = "1:55"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="DiemDoiB" type="Label" parent="KhuTrung"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+
+[node name="KhuBom" type="PanelContainer" parent="."]
+anchors_preset = 9
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -105.0
+offset_top = 60.0
+offset_right = 105.0
+offset_bottom = 140.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bom_bg")
+visible = false
+
+[node name="VBoxBom" type="VBoxContainer" parent="KhuBom"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="NhanBom" type="Label" parent="KhuBom/VBoxBom"]
+layout_mode = 2
+text = "BOM ĐÃ ĐẶT"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.55, 0.2, 1)
+
+[node name="ThoiGianBom" type="Label" parent="KhuBom/VBoxBom"]
+layout_mode = 2
+text = "40"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.9, 0.1, 1)
+
+[node name="ThanhBom" type="ProgressBar" parent="KhuBom/VBoxBom"]
+layout_mode = 2
+custom_minimum_size = Vector2(190, 8)
+value = 100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bom_fill")
+show_percentage = false
+
+[node name="KhuGoBom" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = 40.0
+offset_right = 130.0
+offset_bottom = 95.0
+visible = false
+
+[node name="NhanGoBom" type="Label" parent="KhuGoBom"]
+layout_mode = 2
+text = "GỠ BOM..."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3, 0.85, 1.0, 1)
+
+[node name="ThanhGo" type="ProgressBar" parent="KhuGoBom"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 14)
+value = 0.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_go_fill")
+show_percentage = false
+
+[node name="ThongBaoHieuP" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = -30.0
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1, 0.8, 0.0, 1)
+visible = false
+
+[node name="ThongBaoNhanh" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 60.0
+offset_right = 200.0
+offset_bottom = 96.0
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+visible = false
+
+[node name="NhanHint" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -115.0
+offset_right = 200.0
+offset_bottom = -85.0
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 0.9)
+visible = false
+
+[node name="ManHinhChet" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.5, 0.0, 0.0, 0.7)
+visible = false
+
+[node name="ChuChet" type="Label" parent="ManHinhChet"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = 40.0
+text = "BẠN ĐÃ CHẾT
+Đang hồi sinh..."
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)

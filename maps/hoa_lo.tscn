@@ -1,0 +1,379 @@
+[gd_scene format=3 uid="uid://hoalo001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/round_manager.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_san"]
+size = Vector3(40, 0.5, 44)
+
+[sub_resource type="BoxMesh" id="BoxMesh_san"]
+size = Vector3(40, 0.5, 44)
+
+[sub_resource type="StandardMaterial3D" id="Mat_san"]
+albedo_color = Color(0.5, 0.47, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ns"]
+size = Vector3(40, 3.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_ns"]
+size = Vector3(40, 3.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ew"]
+size = Vector3(0.5, 3.5, 44)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_ew"]
+size = Vector3(0.5, 3.5, 44)
+
+[sub_resource type="StandardMaterial3D" id="Mat_tuong_ngoai"]
+albedo_color = Color(0.76, 0.68, 0.52, 1)
+roughness = 0.85
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_blong"]
+size = Vector3(0.4, 3.5, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_blong"]
+size = Vector3(0.4, 3.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bshort"]
+size = Vector3(10, 3.5, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bshort"]
+size = Vector3(10, 3.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_tuong_noi"]
+albedo_color = Color(0.58, 0.55, 0.48, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mid5"]
+size = Vector3(5, 3.5, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mid5"]
+size = Vector3(5, 3.5, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tcorr"]
+size = Vector3(0.4, 3.5, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tcorr"]
+size = Vector3(0.4, 3.5, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cover1"]
+size = Vector3(1.2, 1.0, 1.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover1"]
+size = Vector3(1.2, 1.0, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cover2"]
+size = Vector3(1.5, 2.0, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover2"]
+size = Vector3(1.5, 2.0, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cover3"]
+size = Vector3(2.5, 1.0, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover3"]
+size = Vector3(2.5, 1.0, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_hop"]
+albedo_color = Color(0.5, 0.34, 0.16, 1)
+roughness = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_site"]
+size = Vector3(5, 0.12, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_site"]
+size = Vector3(5, 0.12, 5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_site_a"]
+albedo_color = Color(0.2, 0.4, 0.9, 0.55)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_site_b"]
+albedo_color = Color(0.9, 0.2, 0.2, 0.55)
+transparency = 1
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
+sky_top_color = Color(0.3, 0.45, 0.65, 1)
+sky_horizon_color = Color(0.7, 0.65, 0.55, 1)
+ground_horizon_color = Color(0.45, 0.42, 0.38, 1)
+ground_bottom_color = Color(0.2, 0.18, 0.15, 1)
+
+[sub_resource type="Sky" id="Sky1"]
+sky_material = SubResource("SkyMat")
+
+[sub_resource type="Environment" id="Env1"]
+background_mode = 2
+sky = SubResource("Sky1")
+ambient_light_source = 3
+ambient_light_color = Color(0.62, 0.58, 0.52, 1)
+ambient_light_energy = 0.6
+
+[node name="HoaLo" type="Node3D"]
+script = ExtResource("4")
+
+[node name="San" type="StaticBody3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="San"]
+shape = SubResource("BoxShape3D_san")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="San"]
+mesh = SubResource("BoxMesh_san")
+surface_material_override/0 = SubResource("Mat_san")
+
+[node name="TuongBac" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -22)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TuongBac"]
+shape = SubResource("BoxShape3D_wall_ns")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TuongBac"]
+mesh = SubResource("BoxMesh_wall_ns")
+surface_material_override/0 = SubResource("Mat_tuong_ngoai")
+
+[node name="TuongNam" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 22)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TuongNam"]
+shape = SubResource("BoxShape3D_wall_ns")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TuongNam"]
+mesh = SubResource("BoxMesh_wall_ns")
+surface_material_override/0 = SubResource("Mat_tuong_ngoai")
+
+[node name="TuongTay" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1.75, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TuongTay"]
+shape = SubResource("BoxShape3D_wall_ew")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TuongTay"]
+mesh = SubResource("BoxMesh_wall_ew")
+surface_material_override/0 = SubResource("Mat_tuong_ngoai")
+
+[node name="TuongDong" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.75, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TuongDong"]
+shape = SubResource("BoxShape3D_wall_ew")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TuongDong"]
+mesh = SubResource("BoxMesh_wall_ew")
+surface_material_override/0 = SubResource("Mat_tuong_ngoai")
+
+[node name="NhaTrai_Tuong" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.75, -2)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaTrai_Tuong"]
+shape = SubResource("BoxShape3D_blong")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaTrai_Tuong"]
+mesh = SubResource("BoxMesh_blong")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="NhaTrai_Bac" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1.75, -12)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaTrai_Bac"]
+shape = SubResource("BoxShape3D_bshort")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaTrai_Bac"]
+mesh = SubResource("BoxMesh_bshort")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="NhaTrai_Nam" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1.75, 8)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaTrai_Nam"]
+shape = SubResource("BoxShape3D_bshort")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaTrai_Nam"]
+mesh = SubResource("BoxMesh_bshort")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="NhaPhai_Tuong" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.75, -2)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaPhai_Tuong"]
+shape = SubResource("BoxShape3D_blong")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaPhai_Tuong"]
+mesh = SubResource("BoxMesh_blong")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="NhaPhai_Bac" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.75, -12)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaPhai_Bac"]
+shape = SubResource("BoxShape3D_bshort")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaPhai_Bac"]
+mesh = SubResource("BoxMesh_bshort")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="NhaPhai_Nam" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.75, 8)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NhaPhai_Nam"]
+shape = SubResource("BoxShape3D_bshort")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NhaPhai_Nam"]
+mesh = SubResource("BoxMesh_bshort")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="CT_Mid_Trai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, -12)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CT_Mid_Trai"]
+shape = SubResource("BoxShape3D_mid5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CT_Mid_Trai"]
+mesh = SubResource("BoxMesh_mid5")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="CT_Mid_Phai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.75, -12)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CT_Mid_Phai"]
+shape = SubResource("BoxShape3D_mid5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CT_Mid_Phai"]
+mesh = SubResource("BoxMesh_mid5")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="T_Mid_Trai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 8)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="T_Mid_Trai"]
+shape = SubResource("BoxShape3D_mid5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="T_Mid_Trai"]
+mesh = SubResource("BoxMesh_mid5")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="T_Mid_Phai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.75, 8)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="T_Mid_Phai"]
+shape = SubResource("BoxShape3D_mid5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="T_Mid_Phai"]
+mesh = SubResource("BoxMesh_mid5")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="T_HanhLang_Trai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.75, 14)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="T_HanhLang_Trai"]
+shape = SubResource("BoxShape3D_tcorr")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="T_HanhLang_Trai"]
+mesh = SubResource("BoxMesh_tcorr")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="T_HanhLang_Phai" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.75, 14)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="T_HanhLang_Phai"]
+shape = SubResource("BoxShape3D_tcorr")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="T_HanhLang_Phai"]
+mesh = SubResource("BoxMesh_tcorr")
+surface_material_override/0 = SubResource("Mat_tuong_noi")
+
+[node name="Hop_A1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.5, -16)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_A1"]
+shape = SubResource("BoxShape3D_cover1")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_A1"]
+mesh = SubResource("BoxMesh_cover1")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_A2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1.0, -15)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_A2"]
+shape = SubResource("BoxShape3D_cover2")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_A2"]
+mesh = SubResource("BoxMesh_cover2")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_B1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.5, -16)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_B1"]
+shape = SubResource("BoxShape3D_cover1")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_B1"]
+mesh = SubResource("BoxMesh_cover1")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_B2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.0, -15)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_B2"]
+shape = SubResource("BoxShape3D_cover2")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_B2"]
+mesh = SubResource("BoxMesh_cover2")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_Mid1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_Mid1"]
+shape = SubResource("BoxShape3D_cover3")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_Mid1"]
+mesh = SubResource("BoxMesh_cover3")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_Mid2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_Mid2"]
+shape = SubResource("BoxShape3D_cover3")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_Mid2"]
+mesh = SubResource("BoxMesh_cover3")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_CT1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, -18)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_CT1"]
+shape = SubResource("BoxShape3D_cover1")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_CT1"]
+mesh = SubResource("BoxMesh_cover1")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="Hop_CT2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -18)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hop_CT2"]
+shape = SubResource("BoxShape3D_cover1")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hop_CT2"]
+mesh = SubResource("BoxMesh_cover1")
+surface_material_override/0 = SubResource("Mat_hop")
+
+[node name="BombSiteA" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.31, -17)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BombSiteA"]
+shape = SubResource("BoxShape3D_site")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BombSiteA"]
+mesh = SubResource("BoxMesh_site")
+surface_material_override/0 = SubResource("Mat_site_a")
+
+[node name="NhanSiteA" type="Label3D" parent="BombSiteA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+text = "A"
+font_size = 120
+modulate = Color(0.3, 0.6, 1.0, 0.95)
+
+[node name="BombSiteB" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.31, -17)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BombSiteB"]
+shape = SubResource("BoxShape3D_site")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BombSiteB"]
+mesh = SubResource("BoxMesh_site")
+surface_material_override/0 = SubResource("Mat_site_b")
+
+[node name="NhanSiteB" type="Label3D" parent="BombSiteB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+text = "B"
+font_size = 120
+modulate = Color(1.0, 0.3, 0.3, 0.95)
+
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 18)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+
+[node name="Dich1" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -18)
+
+[node name="Dich2" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, -17)
+
+[node name="Dich3" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2, -17)
+
+[node name="Dich4" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, 0)
+
+[node name="Dich5" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2, 0)
+
+[node name="Dich6" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -16)
+
+[node name="Dich7" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -16)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.766, -0.572, 0.294, 0, 0.454, 0.891, -0.643, -0.682, 0.35, 0, 12, 0)
+light_color = Color(1.0, 0.95, 0.85, 1)
+light_energy = 1.4
+shadow_enabled = true
+
+[node name="RoundManager" parent="." instance=ExtResource("3")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env1")
