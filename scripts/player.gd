@@ -58,7 +58,16 @@ func _input(event):
 		_toggle_tam_dung()
 		return
 
+	# [DEBUG ONLY] F1 = +5000$ để test buy menu
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and event.keycode == KEY_F1:
+		$Economy.them_tien_truc_tiep(5000)
+		$HUD.hien_thong_bao_nhanh("[TEST] +5000$")
+		return
+
 	if get_tree().paused:
+		return
+
+	if has_node("BuyMenu") and $BuyMenu.dang_mo:
 		return
 
 	if event is InputEventMouseMotion:

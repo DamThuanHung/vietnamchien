@@ -16,6 +16,7 @@ var dang_ngam = false
 var camera: Camera3D
 var muzzle_flash: OmniLight3D
 var player: CharacterBody3D
+var buy_menu: CanvasLayer
 
 # Recoil
 var giat_hien_tai = Vector2.ZERO
@@ -31,6 +32,7 @@ func _ready():
 	camera = get_parent()
 	muzzle_flash = $MuzzleFlash
 	player = get_parent().get_parent()
+	buy_menu = player.get_node_or_null("BuyMenu")
 
 func _process(delta):
 	if get_tree().paused:
@@ -82,6 +84,9 @@ func _tinh_do_giat(loai: String) -> float:
 
 func _input(event):
 	if get_tree().paused:
+		return
+	# Không xử lý input khi đang mở buy menu
+	if buy_menu and buy_menu.dang_mo:
 		return
 	# Không bắn khi đang cầm lựu đạn
 	if player.get("dang_cam_luu_dan"):

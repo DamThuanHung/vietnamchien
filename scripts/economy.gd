@@ -72,3 +72,7 @@ func _tinh_bonus_thua() -> int:
 
 func reset_cho_hieu_p_moi():
 	emit_signal("tien_thay_doi", tien)
+
+func them_tien_truc_tiep(so_tien: int):
+	tien = min(tien + so_tien, TIEN_TOI_DA)
+	emit_signal("tien_thay_doi", tien)
