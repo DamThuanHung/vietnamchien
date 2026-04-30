@@ -41,6 +41,7 @@ var tong_dich_lon_nhat = 0
 @onready var khu_go_bom = $KhuGoBom
 @onready var thanh_go = $KhuGoBom/ThanhGo
 @onready var label_tien = $LabelTien
+@onready var nhan_fps = $NhanFps
 @onready var bang_diem = $BangDiem
 @onready var ty_tan_label = $BangDiem/VBox/TyTan
 @onready var danh_sach_a = $BangDiem/VBox/HBoxCot/ColDoiA/DanhSachA
@@ -63,7 +64,12 @@ func _ready():
 	bang_diem.visible = false
 	nut_ve_menu.pressed.connect(_ve_menu_chinh)
 	nhan_hint.text = ""
+	nhan_fps.visible = CauHinh.hien_thi_fps
+	CauHinh.cau_hinh_thay_doi.connect(_cap_nhat_hien_thi_fps)
 	cap_nhat_hud()
+
+func _cap_nhat_hien_thi_fps():
+	nhan_fps.visible = CauHinh.hien_thi_fps
 
 func _process(delta):
 	cap_nhat_crosshair(delta)
@@ -71,6 +77,8 @@ func _process(delta):
 		_thong_bao_nhanh_tg -= delta
 		if _thong_bao_nhanh_tg <= 0:
 			thong_bao_nhanh.visible = false
+	if nhan_fps.visible:
+		nhan_fps.text = "FPS: %d" % int(Engine.get_frames_per_second())
 
 func cap_nhat_crosshair(delta):
 	do_no_crosshair = lerp(do_no_crosshair, 0.0, delta * 8.0)

@@ -86,7 +86,7 @@
 | Main menu | ✅ Done | [main_menu.gd](../scripts/main_menu.gd) |
 | Pause menu (ESC) | ✅ Done | [pause_menu.gd](../scripts/pause_menu.gd) |
 | Buy menu (B) | ✅ Done | [buy_menu.gd](../scripts/buy_menu.gd) |
-| Settings (âm lượng, sensitivity) | ❌ Chưa | |
+| Cài đặt (độ nhạy, âm lượng, FPS) | ✅ Done | Lưu vào user://cau_hinh.cfg, mở từ main_menu hoặc pause_menu |
 | Bảng kết quả cuối trận | ✅ Done | Hiện bảng điểm + tiêu đề thắng/thua + đếm ngược 15s + nút về menu |
 
 ### Map

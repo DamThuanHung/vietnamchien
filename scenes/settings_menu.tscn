@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://settings001"]
+
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.06, 0.06, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_width_bottom = 2
+border_width_top = 2
+border_width_left = 2
+border_width_right = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0, 0, 0, 0.65)
+
+[node name="SettingsMenu" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="NenMo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Khung" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -200.0
+offset_right = 260.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Khung"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MarginTop" type="Control" parent="Khung/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="TieuDe" type="Label" parent="Khung/VBox"]
+layout_mode = 2
+text = "CÀI ĐẶT"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+
+[node name="DuongKe1" type="HSeparator" parent="Khung/VBox"]
+layout_mode = 2
+
+[node name="MucDoNhay" type="VBoxContainer" parent="Khung/VBox"]
+layout_mode = 2
+
+[node name="HBoxNhay" type="HBoxContainer" parent="Khung/VBox/MucDoNhay"]
+layout_mode = 2
+
+[node name="NhanNhay" type="Label" parent="Khung/VBox/MucDoNhay/HBoxNhay"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Độ nhạy chuột"
+theme_override_font_sizes/font_size = 16
+
+[node name="GiaTriNhay" type="Label" parent="Khung/VBox/MucDoNhay/HBoxNhay"]
+layout_mode = 2
+text = "0.0020"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 1.0, 0.7, 1)
+
+[node name="ThanhNhay" type="HSlider" parent="Khung/VBox/MucDoNhay"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+min_value = 0.0005
+max_value = 0.005
+step = 0.0001
+value = 0.002
+
+[node name="MucAmLuong" type="VBoxContainer" parent="Khung/VBox"]
+layout_mode = 2
+
+[node name="HBoxAm" type="HBoxContainer" parent="Khung/VBox/MucAmLuong"]
+layout_mode = 2
+
+[node name="NhanAm" type="Label" parent="Khung/VBox/MucAmLuong/HBoxAm"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Âm lượng"
+theme_override_font_sizes/font_size = 16
+
+[node name="GiaTriAm" type="Label" parent="Khung/VBox/MucAmLuong/HBoxAm"]
+layout_mode = 2
+text = "80"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 1.0, 0.7, 1)
+
+[node name="ThanhAm" type="HSlider" parent="Khung/VBox/MucAmLuong"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+min_value = 0
+max_value = 100
+step = 1
+value = 80
+
+[node name="MucFps" type="HBoxContainer" parent="Khung/VBox"]
+layout_mode = 2
+
+[node name="NhanFps" type="Label" parent="Khung/VBox/MucFps"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hiển thị FPS"
+theme_override_font_sizes/font_size = 16
+
+[node name="CongTacFps" type="CheckButton" parent="Khung/VBox/MucFps"]
+layout_mode = 2
+
+[node name="DuongKe2" type="HSeparator" parent="Khung/VBox"]
+layout_mode = 2
+
+[node name="HBoxNut" type="HBoxContainer" parent="Khung/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="NutMacDinh" type="Button" parent="Khung/VBox/HBoxNut"]
+layout_mode = 2
+custom_minimum_size = Vector2(140, 40)
+text = "Mặc định"
+theme_override_font_sizes/font_size = 14
+
+[node name="NutDong" type="Button" parent="Khung/VBox/HBoxNut"]
+layout_mode = 2
+custom_minimum_size = Vector2(140, 40)
+text = "Đóng"
+theme_override_font_sizes/font_size = 14

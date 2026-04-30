@@ -4,7 +4,6 @@ const TOC_DO_CHAY = 5.0
 const TOC_DO_DI_BO = 2.2
 const TOC_DO_NGOI = 1.4
 const LUC_NHAY = 4.5
-const DO_NHAY_CAM_CHUOT = 0.002
 const TRONG_LUC = -9.8
 const CAO_DUNG = 1.6
 const CAO_NGOI = 0.9
@@ -87,8 +86,9 @@ func _input(event):
 		return
 
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * DO_NHAY_CAM_CHUOT)
-		camera.rotate_x(-event.relative.y * DO_NHAY_CAM_CHUOT)
+		var do_nhay = CauHinh.do_nhay_chuot
+		rotate_y(-event.relative.x * do_nhay)
+		camera.rotate_x(-event.relative.y * do_nhay)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2.2, PI/2.2)
 
 	if event.is_action_pressed("ngoi"):
