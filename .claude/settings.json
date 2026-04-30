@@ -1,0 +1,61 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Bắt đầu session. Gõ /bat_dau để em load STATE + BACKLOG + SESSION_LOG.\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[Quy tắc bất biến] tiếng Việt snake_case | magic number → const | số liệu súng chỉ ở scripts/weapon_data.gd | cross-scene qua signal | check docs/DECISION_LOG.md trước khi đề xuất lại\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Kết thúc turn. Nếu đã sửa code, hãy update docs/STATE.md trước khi /ket_thuc.\""
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git branch:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(stat:*)",
+      "Bash(cat docs/*)",
+      "Bash(cat CLAUDE.md)",
+      "Read",
+      "Glob",
+      "Grep",
+      "TodoWrite"
+    ],
+    "ask": [],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}

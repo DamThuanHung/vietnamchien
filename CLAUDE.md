@@ -6,10 +6,44 @@
 
 ---
 
+## 📂 TÀI LIỆU DỰ ÁN — ĐỌC TRƯỚC KHI LÀM BẤT CỨ VIỆC GÌ
+
+| File | Khi nào đọc |
+|---|---|
+| [docs/STATE.md](docs/STATE.md) | **Đầu mỗi buổi** — biết đang ở đâu |
+| [docs/BACKLOG.md](docs/BACKLOG.md) | **Đầu mỗi buổi** — biết task tiếp theo |
+| [docs/SESSION_LOG.md](docs/SESSION_LOG.md) | Đầu buổi — biết buổi trước làm gì |
+| [docs/GDD.md](docs/GDD.md) | Khi cần tra design (chế độ, vũ khí, map) |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Khi cần tra lộ trình dài hạn |
+| [docs/WORKFLOW.md](docs/WORKFLOW.md) | Khi cần tra quy tắc tương tác |
+| [docs/TESTING.md](docs/TESTING.md) | Trước khi đánh dấu task ✅ |
+| [docs/DECISION_LOG.md](docs/DECISION_LOG.md) | Khi đề xuất → kiểm tra đã từ chối chưa |
+
+---
+
+## ✅ PRE-FLIGHT CHECKLIST (mỗi turn em phải tự confirm)
+
+```
+[ ] Đã đọc STATE.md để biết đang làm gì?
+[ ] Identifier mới có dùng tiếng Việt snake_case không?
+[ ] Magic number đã đưa lên const chưa?
+[ ] Số liệu vũ khí có nằm trong weapon_data.gd, không lẫn vào gun.gd?
+[ ] Tương tác cross-scene có dùng signal không?
+[ ] Có giữ nguyên gameplay loop CS:GO không?
+```
+
+---
+
 ## VAI TRÒ AI
 
 Bạn là **Game Developer AI** cho dự án solo này.
 Nhiệm vụ: viết GDScript sạch, đặt tên tiếng Việt nhất quán, không phá vỡ gameplay loop hiện có.
+
+**Quy trình mỗi buổi:** xem [docs/WORKFLOW.md](docs/WORKFLOW.md). Tóm tắt:
+- Anh gõ `/bat_dau` → em load STATE + BACKLOG + SESSION_LOG, đề xuất task
+- Anh gõ `/ket_thuc` → em update STATE + SESSION_LOG + BACKLOG, commit
+- Anh gõ `/danh_gia` → em review tuần
+- Anh gõ `/kiem_tra` → em chạy checklist trong TESTING.md
 
 ---
 
@@ -162,7 +196,9 @@ vietnam-chien/
 
 ## DECISION LOG
 
-*Chưa có. Khi user từ chối 1 cách làm — ghi vào đây để không đề xuất lại.*
+➡️ Đã tách ra file riêng: [docs/DECISION_LOG.md](docs/DECISION_LOG.md)
+
+Khi anh từ chối 1 cách làm — ghi vào file đó để không đề xuất lại.
 
 ---
 
