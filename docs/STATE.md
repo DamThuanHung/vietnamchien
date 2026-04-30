@@ -7,10 +7,10 @@
 
 ## CẬP NHẬT GẦN NHẤT
 
-- **Ngày:** 2026-04-30
-- **Commit gần nhất:** `8ed3468` — chore: dọn dòng trống do Godot tự sinh
-- **Build cuối cùng chạy được:** Chưa verify trong session này — cần test khi mở Godot
-- **Session hiện tại:** Setup hạ tầng Phase 1 (docs + hooks + commands)
+- **Ngày:** 2026-05-01
+- **Commit gần nhất:** `8b77518` — feat: phân phe theo map (2 phe Bộ đội Cụ Hồ vs Lính Mỹ/Pháp)
+- **Build cuối cùng chạy được:** ✅ Pass smoke test ngày 30/04 + đã test sau mỗi tính năng mới
+- **Session hiện tại:** ĐÃ KẾT THÚC. Buổi siêu năng suất — 8 ghi chốt, 8 hạng mục lớn (xem SESSION_LOG.md).
 
 ---
 
@@ -119,6 +119,13 @@
 
 ## NEXT 3 TASKS (lấy từ [BACKLOG.md](BACKLOG.md))
 
-1. Test build hiện tại trong Godot — verify mọi tính năng còn chạy
-2. Thêm âm thanh bắn súng cho 3-5 súng chính
-3. Hoàn thiện scoreboard (Tab) hiển thị đủ team/kill/death/score
+P0 còn lại (cần asset âm thanh):
+1. Thêm âm thanh bắn súng cho 5 súng chính (cần file .ogg/.wav)
+2. Thêm âm thanh bước chân + beep bom
+
+P0 lớn (cần nhiều buổi):
+3. Thiết kế level Hỏa Lò thật (3-4 buổi)
+
+P1 không cần asset, em làm được:
+4. Enemy biết đặt/gỡ bom (~2 giờ — quan trọng cho chế độ Đặt Bom)
+5. Enemy biết mua súng theo kinh tế (~2 giờ)

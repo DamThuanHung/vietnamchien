@@ -5,6 +5,60 @@
 
 ---
 
+## Session 2026-04-30 → 2026-05-01 — Buổi siêu năng suất
+
+**Thời lượng:** ước lượng 4-5 giờ (buổi dài, kéo qua nửa đêm)
+**Người làm:** Anh + Claude
+
+### Đã làm (8 hạng mục lớn)
+1. **Lập hạ tầng dự án** — tạo `docs/` (8 tài liệu: GDD, ROADMAP, WORKFLOW, BACKLOG, STATE, SESSION_LOG, DECISION_LOG, TESTING), `.claude/settings.json` với hooks, 4 lệnh tắt tiếng Việt (`/bat_dau`, `/ket_thuc`, `/danh_gia`, `/kiem_tra`)
+2. **Sửa cảnh khởi động** — F5 đi vào menu chính thay vì map skeleton Hỏa Lò
+3. **Sửa lỗi súng xoay theo chuột** khi mở menu mua súng — chặn input player + gun khi BuyMenu mở (giống CS:GO không pause tree)
+4. **Bảng điểm (Tab)** đầy đủ — 2 cột đội + tỷ số + tiền + sống/chết
+5. **Bảng kết quả cuối trận** — thay thông báo text 1 dòng bằng bảng điểm phóng to + tiêu đề thắng/thua + nút "Về Menu Chính" + đếm ngược 15s
+6. **Cài đặt** — autoload `CauHinh`, lưu/đọc `user://cau_hinh.cfg`, giao diện 2 thanh trượt (độ nhạy + âm lượng) + công tắc FPS, mở từ main_menu hoặc pause_menu
+7. **Kiểm tra build** — chạy SMOKE TEST, 7/8 mục đạt, mục 8 chỉ là "stub trống" chưa làm (đã làm ở việc 4)
+8. **Phân phe theo map** — quyết định lớn: bỏ thiết kế 3 phe (VN/Mỹ/Pháp) thành 2 phe (Bộ đội Cụ Hồ vs Lính Mỹ HOẶC Lính Pháp), mỗi map có @export phe_dich. Tạo autoload `TranDau`. Bảng điểm/kết quả/thông báo dùng tên đội động.
+
+### Phím debug (chỉ ở chế độ thử)
+- **F1** — +5000$ (test menu mua súng)
+- **F2** — Đội A thắng trận (test bảng kết quả)
+- **F3** — Đội B thắng trận
+
+### Lỗi gặp + cách sửa
+- **Lỗi:** Action `mo_bang_diem` gắn nhầm phím Delete thay vì Tab → sửa `physical_keycode 4194312 → 4194306` trong project.godot
+- **Lỗi:** Pause menu và cài đặt chồng lên nhau khi mở từ pause → ẩn pause khi mở cài đặt, hiện lại khi đóng
+- **Lỗi:** Bảng điểm và bảng kết quả ban đầu dùng tên đội cứng "ĐỘI A — VIỆT NAM CHIẾN THẮNG" → đổi thành tên động từ TranDau
+
+### Anh feedback (đã ghi vào quy tắc)
+- Yêu cầu **slash command tiếng Việt** (`/start` → `/bat_dau`, `/end` → `/ket_thuc`)
+- Yêu cầu **tiếng Việt 100% kể cả từ kỹ thuật có thể dịch** (PASS → ĐẠT, bug → lỗi, stub → hàm rỗng, ...)
+- Yêu cầu **không hỏi kết thúc**, cứ tiếp tục cho đến khi anh nói rõ
+- **Quyết định lớn:** 2 phe theo map, không 3 phe — đúng lịch sử + đúng CS:GO
+
+### Ghi chốt trong session (8)
+- `8ed3468` — chore: dọn dòng trống Godot
+- `3866292` — docs: setup hạ tầng Phase 1
+- `b26d4fd` — fix: đổi main scene về menu chính
+- `92dcee6` — fix: chặn input khi mở buy menu
+- `959af6c` — feat: bảng điểm (Tab)
+- `b76a100` — feat: bảng kết quả cuối trận
+- `0cc1e36` — feat: cài đặt
+- `8b77518` — feat: phân phe theo map
+
+### Vị trí trên lộ trình
+- Lộ trình ban đầu: tháng 4-6 = giai đoạn 1 (Nền tảng), tháng 7-9 = giai đoạn 3 (AI offline)
+- Hiện tại: đã hoàn tất giai đoạn 1+2+phần lớn 3 — đi nhanh hơn lịch ~3 tháng
+
+### Buổi sau
+- Gõ `/bat_dau` đầu buổi
+- Đề xuất việc tiếp theo:
+  - Việc 11 P1: Enemy biết đặt/gỡ bom (~2 giờ, không cần asset)
+  - Hoặc: kiếm file âm thanh .ogg/.wav để làm việc 2 P0 (âm thanh bắn súng)
+  - Hoặc: bắt đầu thiết kế level Hỏa Lò (việc 4 P0, 3-4 buổi)
+
+---
+
 ## Session 2026-04-30 — Setup hạ tầng Phase 1
 
 **Thời lượng:** ~1.5 giờ
