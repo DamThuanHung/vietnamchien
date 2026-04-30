@@ -57,17 +57,23 @@
 
 ---
 
-## 4. NHÂN VẬT
+## 4. NHÂN VẬT — 2 PHE THEO MAP
 
-### Phe Bắc — Đội Đỏ (`doi_a`)
-- Bộ đội
-- Đặc công
-- Dân quân
+> **Quyết định 01/05/2026:** Chỉ có 2 phe trong 1 trận đánh. Đúng lịch sử (Việt Nam đánh từng cuộc kháng chiến riêng) và đúng phong cách CS:GO (2 đội).
 
-### Phe Nam — Đội Xanh (`doi_b`)
-- Lính Cộng Hòa
-- Lính Mỹ
-- Biệt động
+### Đội A — Phe người chơi (cố định mọi map)
+- **Tên hiển thị:** BỘ ĐỘI CỤ HỒ
+- **Màu nhận diện:** Đỏ (#F24D4D)
+- **Vai trò trong code:** `doi_a`, group `nguoi_choi`
+
+### Đội B — Phe địch (thay đổi theo map)
+| Phe | Tên hiển thị | Màu | Map sử dụng |
+|---|---|---|---|
+| `my` | LÍNH MỸ | Xanh dương (#4090FF) | Map test, Địa đạo Củ Chi (sau) |
+| `phap` | LÍNH PHÁP | Xanh lá (#4DBF59) | Hỏa Lò, Điện Biên Phủ (sau) |
+
+### Cấu hình phe địch cho map
+Mỗi map .tscn có thuộc tính `@export phe_dich` trên root node (qua [game_manager.gd](../scripts/game_manager.gd)). Khi map load, [tran_dau.gd](../scripts/tran_dau.gd) (autoload) cập nhật trạng thái trận. Enemy đọc từ TranDau để có đúng tên/màu.
 
 ---
 

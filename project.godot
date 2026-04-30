@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CauHinh="*res://scripts/cau_hinh.gd"
+TranDau="*res://scripts/tran_dau.gd"
 
 [input]
 

@@ -16,6 +16,9 @@ var vi_tri_xuat_phat: Vector3
 var vi_tri_tuan_tra: Vector3
 var dang_tuan_tra = false
 
+var ten_hien_thi: String = "Địch"
+var so_thu_tu: int = 0
+
 enum TrangThai { DUNG_YEN, TUAN_TRA, TRUY_DUOI, TAN_CONG }
 var trang_thai = TrangThai.TUAN_TRA
 
@@ -24,11 +27,36 @@ var trang_thai = TrangThai.TUAN_TRA
 
 func _ready():
 	add_to_group("dich")
+	_dat_ten_va_mau()
 	nguoi_choi = get_tree().get_first_node_in_group("nguoi_choi")
 	vi_tri_xuat_phat = global_position
 	vi_tri_tuan_tra = _chon_diem_tuan_tra()
 	await get_tree().create_timer(randf_range(0.5, 2.0)).timeout
 	_cap_nhat_tuan_tra()
+
+func _dat_ten_va_mau():
+	var info = TranDau.thong_tin_dich()
+	# Số thứ tự duy nhất trong nhóm "dich"
+	so_thu_tu = get_tree().get_nodes_in_group("dich").size()
+	ten_hien_thi = "%s %d" % [info["ten_ca_nhan"], so_thu_tu]
+
+	# Đổi màu thân theo phe địch
+	for ten_node in ["ThanNguoi", "TayTrai", "TayPhai", "ChanTrai", "ChanPhai"]:
+		var node = get_node_or_null(ten_node)
+		if node:
+			var vat_lieu = StandardMaterial3D.new()
+			vat_lieu.albedo_color = info["mau_than"]
+			node.set_surface_override_material(0, vat_lieu)
+
+	# Đổi màu thanh máu world-space theo phe địch
+	if thanh_mau_dich:
+		var style = StyleBoxFlat.new()
+		style.bg_color = info["mau_thanh_mau"]
+		style.corner_radius_top_left = 2
+		style.corner_radius_top_right = 2
+		style.corner_radius_bottom_right = 2
+		style.corner_radius_bottom_left = 2
+		thanh_mau_dich.add_theme_stylebox_override("fill", style)
 
 func _physics_process(delta):
 	if not dang_song:

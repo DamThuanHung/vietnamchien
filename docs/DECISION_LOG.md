@@ -5,6 +5,18 @@
 
 ---
 
+## 2026-05-01
+
+### #007 — Game chỉ có 2 phe trong 1 trận, phe địch thay đổi theo map
+- **Quyết định:** Bỏ thiết kế 3 phe (VN/Mỹ/Pháp) chung 1 trận. Mỗi map có 1 phe địch riêng (Mỹ HOẶC Pháp). Đội A luôn là Bộ đội Cụ Hồ.
+- **Lý do:**
+  1. Đúng lịch sử Việt Nam — không đánh Mỹ + Pháp cùng lúc trong cùng cuộc chiến
+  2. Đúng phong cách CS:GO — 2 đội rõ ràng, không 3
+  3. Đúng GDD ban đầu (Phe Bắc — Đội Đỏ vs Phe Nam — Đội Xanh)
+  4. Bảng điểm 2 cột to gọn hơn 3 hàng nhỏ
+- **Đề xuất:** Anh phát hiện và yêu cầu sửa
+- **Áp dụng:** [scripts/tran_dau.gd](../scripts/tran_dau.gd) autoload, @export phe_dich trong [game_manager.gd](../scripts/game_manager.gd), [docs/GDD.md](GDD.md) section 4 đã cập nhật
+
 ## 2026-04-30
 
 ### #006 — Slash commands dùng tiếng Việt

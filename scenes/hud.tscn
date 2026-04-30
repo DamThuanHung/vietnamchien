@@ -462,10 +462,10 @@ theme_override_constants/separation = 8
 
 [node name="HeaderA" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
 layout_mode = 2
-text = "ĐỘI A — VIỆT NAM"
+text = "🇻🇳  BỘ ĐỘI CỤ HỒ"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3, 0.7, 1.0, 1)
+theme_override_colors/font_color = Color(0.95, 0.3, 0.3, 1)
 
 [node name="CotTieuDeA" type="HBoxContainer" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
 layout_mode = 2
@@ -518,10 +518,10 @@ theme_override_constants/separation = 8
 
 [node name="HeaderB" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
 layout_mode = 2
-text = "ĐỘI B — ĐỊCH"
+text = "ĐỊCH"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
 
 [node name="DuongKeB" type="HSeparator" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
 layout_mode = 2

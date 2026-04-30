@@ -144,7 +144,10 @@ func ban():
 			ket_qua.collider.nhan_sat_thuong(sat_thuong)
 			if ket_qua.collider.get("dang_song") == false:
 				if hud:
-					hud.them_kill(ket_qua.collider.name, loai_sung)
+					var ten_dich = ket_qua.collider.get("ten_hien_thi")
+					if ten_dich == null or ten_dich == "":
+						ten_dich = ket_qua.collider.name
+					hud.them_kill(ten_dich, loai_sung)
 		tao_hieu_ung_trung_dan(ket_qua.position, ket_qua.normal)
 
 	await get_tree().create_timer(toc_do_ban).timeout

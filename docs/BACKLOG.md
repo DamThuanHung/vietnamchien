@@ -22,7 +22,6 @@
 | 6 | Animation reload + ADS cho súng | 2 giờ |
 | 7 | Model nhân vật cho enemy (cầm súng) | 3 giờ + có model |
 | 8 | Animation bắn cho enemy | 1.5 giờ |
-| 9 | Enemy phân team/faction (VN/Mỹ/Pháp) — visual khác | 1.5 giờ |
 | 10 | Enemy biết mua súng theo economy | 2 giờ |
 | 11 | Enemy biết đặt/gỡ bom | 2 giờ |
 | 14 | Build Windows test | 1 giờ |
@@ -66,3 +65,4 @@
 - ✅ Bảng điểm (Tab) đầy đủ: tỷ số đội + danh sách người chơi + tổng địch *(session 30/04)*
 - ✅ Bảng kết quả cuối trận: tiêu đề thắng/thua + nút về menu + đếm ngược 15s *(session 30/04)*
 - ✅ Cài đặt (độ nhạy chuột, âm lượng, hiển thị FPS) — autoload CauHinh, lưu/đọc cau_hinh.cfg *(session 30/04)*
+- ✅ Enemy phân phe theo map (Bộ đội Cụ Hồ vs Lính Mỹ/Lính Pháp) — autoload TranDau *(session 01/05)*

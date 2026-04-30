@@ -44,6 +44,8 @@ var tong_dich_lon_nhat = 0
 @onready var nhan_fps = $NhanFps
 @onready var bang_diem = $BangDiem
 @onready var ty_tan_label = $BangDiem/VBox/TyTan
+@onready var header_a = $BangDiem/VBox/HBoxCot/ColDoiA/HeaderA
+@onready var header_b = $BangDiem/VBox/HBoxCot/ColDoiB/HeaderB
 @onready var danh_sach_a = $BangDiem/VBox/HBoxCot/ColDoiA/DanhSachA
 @onready var danh_sach_b = $BangDiem/VBox/HBoxCot/ColDoiB/DanhSachB
 @onready var duong_ke_ket_qua = $BangDiem/VBox/DuongKeKetQua
@@ -232,11 +234,12 @@ func hien_bang_ket_qua(doi_thang: String):
 	dong_dem_nguoc.visible = true
 	nut_ve_menu.visible = true
 
+	var info_dich = TranDau.thong_tin_dich()
 	if doi_thang == "A":
-		tieu_de_ket_qua.text = "🎉  ĐỘI A — VIỆT NAM CHIẾN THẮNG  🎉"
+		tieu_de_ket_qua.text = "🎉  %s CHIẾN THẮNG  🎉" % TranDau.TEN_DOI_A
 		tieu_de_ket_qua.add_theme_color_override("font_color", Color(0.3, 1.0, 0.4, 1))
 	else:
-		tieu_de_ket_qua.text = "ĐỘI B THẮNG"
+		tieu_de_ket_qua.text = "%s THẮNG" % info_dich["ten_doi"]
 		tieu_de_ket_qua.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3, 1))
 
 	# Thả chuột để bấm nút
@@ -260,9 +263,17 @@ func _ve_menu_chinh():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _ve_bang_diem():
-	# Cập nhật dòng tỷ số
-	ty_tan_label.text = "ĐỘI A  %d  :  %d  ĐỘI B    |    Hiệp %d / 15" % [
-		diem_a_hien, diem_b_hien, hieu_p_hien
+	var info_dich = TranDau.thong_tin_dich()
+
+	# Header 2 cột — đổi theo phe địch của map
+	header_a.text = "🇻🇳  " + TranDau.TEN_DOI_A
+	header_a.add_theme_color_override("font_color", TranDau.MAU_DOI_A)
+	header_b.text = info_dich["ten_doi"]
+	header_b.add_theme_color_override("font_color", info_dich["mau_doi"])
+
+	# Cập nhật dòng tỷ số dùng tên đội đẹp
+	ty_tan_label.text = "%s  %d  :  %d  %s    |    Hiệp %d / 15" % [
+		TranDau.TEN_DOI_A, diem_a_hien, diem_b_hien, info_dich["ten_doi"], hieu_p_hien
 	]
 
 	# Xóa các hàng cũ
@@ -276,17 +287,21 @@ func _ve_bang_diem():
 	var player = get_parent()
 	if player and player.has_node("Economy"):
 		tien_player = player.get_node("Economy").tien
-	danh_sach_a.add_child(_tao_hang_doi_a("Bạn", so_kill, so_chet, tien_player))
+	danh_sach_a.add_child(_tao_hang_nguoi_choi("Bạn", so_kill, so_chet, tien_player))
 
-	# Đội B: tổng quân địch (vì là bot, gộp thành 1 hàng)
+	# Đội B: tổng quân địch (1 hàng) + thống kê còn sống / đã hạ
 	var dich_con_song = get_tree().get_nodes_in_group("dich").size()
-	var dich_da_chet = so_kill  # số địch player đã hạ
-	var tong_dich = dich_con_song + dich_da_chet
+	var tong_dich = dich_con_song + so_kill
 	if tong_dich > tong_dich_lon_nhat:
 		tong_dich_lon_nhat = tong_dich
-	danh_sach_b.add_child(_tao_hang_doi_b(dich_con_song, tong_dich_lon_nhat))
+	danh_sach_b.add_child(_tao_hang_dich(
+		info_dich["ten_ca_nhan"] + " (bot)",
+		dich_con_song,
+		tong_dich_lon_nhat,
+		info_dich["mau_doi"]
+	))
 
-func _tao_hang_doi_a(ten: String, so_ha: int, so_lan_chet: int, tien: int) -> HBoxContainer:
+func _tao_hang_nguoi_choi(ten: String, so_ha: int, so_lan_chet: int, tien: int) -> HBoxContainer:
 	var hang = HBoxContainer.new()
 
 	var n_ten = Label.new()
@@ -322,14 +337,14 @@ func _tao_hang_doi_a(ten: String, so_ha: int, so_lan_chet: int, tien: int) -> HB
 
 	return hang
 
-func _tao_hang_doi_b(con_song: int, tong: int) -> VBoxContainer:
+func _tao_hang_dich(ten: String, con_song: int, tong: int, mau: Color) -> VBoxContainer:
 	var hop = VBoxContainer.new()
 
-	var n_dong_chinh = Label.new()
-	n_dong_chinh.text = "Quân địch (bot)"
-	n_dong_chinh.add_theme_font_size_override("font_size", 16)
-	n_dong_chinh.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-	hop.add_child(n_dong_chinh)
+	var n_ten = Label.new()
+	n_ten.text = ten
+	n_ten.add_theme_font_size_override("font_size", 16)
+	n_ten.add_theme_color_override("font_color", mau)
+	hop.add_child(n_ten)
 
 	var n_thong_ke = Label.new()
 	n_thong_ke.text = "Còn sống: %d / %d  •  Đã hạ: %d" % [con_song, tong, tong - con_song]

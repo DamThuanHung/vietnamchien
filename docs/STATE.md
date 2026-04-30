@@ -53,7 +53,7 @@
 | Thanh máu world-space | ✅ Done | |
 | Cầm súng có model | ❌ Chưa | |
 | Animation bắn | ❌ Chưa | |
-| Phân team/faction (VN/Mỹ/Pháp) | ❌ Chưa | |
+| Phân phe theo map (Mỹ / Pháp) | ✅ Done | TranDau autoload + @export phe_dich, mỗi map 1 phe địch |
 | Biết mua súng | ❌ Chưa | |
 | Biết đặt/gỡ bom | ❌ Chưa | |
 

@@ -113,6 +113,7 @@ ambient_light_energy = 0.6
 
 [node name="HoaLo" type="Node3D"]
 script = ExtResource("4")
+phe_dich = "phap"
 
 [node name="San" type="StaticBody3D" parent="."]
 [node name="CollisionShape3D" type="CollisionShape3D" parent="San"]
