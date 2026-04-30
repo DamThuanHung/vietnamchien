@@ -9,9 +9,7 @@
 
 | # | Task | Ước lượng | Phụ thuộc |
 |---|---|---|---|
-| 1 | Test build Godot — verify mọi tính năng còn chạy sau khi không động code 13 ngày | 30 phút | — |
 | 2 | Thêm âm thanh bắn súng cho 3-5 súng chính (AK-47, M16, K54, Mosin, RPG-7) | 1.5 giờ | Có file .ogg/.wav |
-| 3 | Hoàn thiện scoreboard (Tab) hiển thị team/kill/death/score | 2 giờ | — |
 | 4 | Thiết kế level Hỏa Lò thật (thay skeleton) — phòng giam, sân trong, 2 site bom A/B | 3-4 buổi | — |
 | 5 | Thêm âm thanh bước chân + beep bom | 1 giờ | Có file âm |
 
@@ -64,3 +62,7 @@
 - ✅ Skeleton map Hỏa Lò *(session 17/04)*
 - ✅ Database vũ khí 1011 dòng *(session 17/04)*
 - ✅ Setup hạ tầng dự án (docs/, hooks, slash commands) *(session 30/04)*
+- ✅ Test build Godot — toàn bộ tính năng cũ vẫn chạy *(session 30/04)*
+- ✅ Sửa lỗi: súng xoay theo chuột khi mở menu mua súng *(session 30/04)*
+- ✅ Đổi menu chính làm cảnh khởi động (F5 → menu chính) *(session 30/04)*
+- ✅ Bảng điểm (Tab) đầy đủ: tỷ số đội + danh sách người chơi + tổng địch *(session 30/04)*

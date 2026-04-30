@@ -7,9 +7,16 @@ const THOI_GIAN_CHET = 3.0
 
 var mau_hien_tai = MAU_TOI_DA
 var so_kill = 0
+var so_chet = 0
 var dang_chet = false
 var do_no_crosshair = 0.0
 var _thong_bao_nhanh_tg = 0.0
+
+# Dữ liệu cho bảng điểm
+var diem_a_hien = 0
+var diem_b_hien = 0
+var hieu_p_hien = 1
+var tong_dich_lon_nhat = 0
 
 @onready var thanh_mau = $KhungMau/VBoxContainer/ThanhMau
 @onready var chu_so_mau = $KhungMau/VBoxContainer/ChuSoMau
@@ -34,6 +41,10 @@ var _thong_bao_nhanh_tg = 0.0
 @onready var khu_go_bom = $KhuGoBom
 @onready var thanh_go = $KhuGoBom/ThanhGo
 @onready var label_tien = $LabelTien
+@onready var bang_diem = $BangDiem
+@onready var ty_tan_label = $BangDiem/VBox/TyTan
+@onready var danh_sach_a = $BangDiem/VBox/HBoxCot/ColDoiA/DanhSachA
+@onready var danh_sach_b = $BangDiem/VBox/HBoxCot/ColDoiB/DanhSachB
 
 func _ready():
 	man_hinh_chet.visible = false
@@ -41,6 +52,7 @@ func _ready():
 	thong_bao_nhanh.visible = false
 	khu_bom.visible = false
 	khu_go_bom.visible = false
+	bang_diem.visible = false
 	nhan_hint.text = ""
 	cap_nhat_hud()
 
@@ -79,6 +91,8 @@ func them_kill(ten_dich, loai_vu_khi: String = "sung"):
 	chu_kill.text = str(so_kill)
 	them_kill_feed("Bạn đã hạ " + ten_dich)
 	emit_signal("on_kill", loai_vu_khi)
+	if bang_diem.visible:
+		_ve_bang_diem()
 
 func hien_thuong_tien(so_tien: int):
 	var nhan = Label.new()
@@ -118,9 +132,14 @@ func cap_nhat_thoi_gian(giay):
 	chu_thoi_gian.text = "%d:%02d" % [phut, giay_con]
 
 func cap_nhat_diem(diem_a: int, diem_b: int, hieu_p: int):
+	diem_a_hien = diem_a
+	diem_b_hien = diem_b
+	hieu_p_hien = hieu_p
 	chu_diem_a.text = str(diem_a)
 	chu_diem_b.text = str(diem_b)
 	chu_hieu_p.text = str(hieu_p)
+	if bang_diem.visible:
+		_ve_bang_diem()
 
 func hien_thong_bao(noi_dung: String, mau: Color):
 	thong_bao_hieu_p.text = noi_dung
@@ -175,13 +194,100 @@ func cap_nhat_tien_do_go(tien_do: float):
 
 func cap_nhat_tien(so_tien: int):
 	label_tien.text = "$%d" % so_tien
+	if bang_diem.visible:
+		_ve_bang_diem()
 
 func hien_bang_diem(hien: bool):
-	pass
+	bang_diem.visible = hien
+	if hien:
+		_ve_bang_diem()
+
+func _ve_bang_diem():
+	# Cập nhật dòng tỷ số
+	ty_tan_label.text = "ĐỘI A  %d  :  %d  ĐỘI B    |    Hiệp %d / 15" % [
+		diem_a_hien, diem_b_hien, hieu_p_hien
+	]
+
+	# Xóa các hàng cũ
+	for con in danh_sach_a.get_children():
+		con.queue_free()
+	for con in danh_sach_b.get_children():
+		con.queue_free()
+
+	# Đội A: người chơi
+	var tien_player = 0
+	var player = get_parent()
+	if player and player.has_node("Economy"):
+		tien_player = player.get_node("Economy").tien
+	danh_sach_a.add_child(_tao_hang_doi_a("Bạn", so_kill, so_chet, tien_player))
+
+	# Đội B: tổng quân địch (vì là bot, gộp thành 1 hàng)
+	var dich_con_song = get_tree().get_nodes_in_group("dich").size()
+	var dich_da_chet = so_kill  # số địch player đã hạ
+	var tong_dich = dich_con_song + dich_da_chet
+	if tong_dich > tong_dich_lon_nhat:
+		tong_dich_lon_nhat = tong_dich
+	danh_sach_b.add_child(_tao_hang_doi_b(dich_con_song, tong_dich_lon_nhat))
+
+func _tao_hang_doi_a(ten: String, so_ha: int, so_lan_chet: int, tien: int) -> HBoxContainer:
+	var hang = HBoxContainer.new()
+
+	var n_ten = Label.new()
+	n_ten.text = ten
+	n_ten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	n_ten.add_theme_font_size_override("font_size", 16)
+	n_ten.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	hang.add_child(n_ten)
+
+	var n_k = Label.new()
+	n_k.text = str(so_ha)
+	n_k.custom_minimum_size = Vector2(40, 0)
+	n_k.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	n_k.add_theme_font_size_override("font_size", 16)
+	n_k.add_theme_color_override("font_color", Color(0.4, 1.0, 0.4, 1))
+	hang.add_child(n_k)
+
+	var n_d = Label.new()
+	n_d.text = str(so_lan_chet)
+	n_d.custom_minimum_size = Vector2(40, 0)
+	n_d.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	n_d.add_theme_font_size_override("font_size", 16)
+	n_d.add_theme_color_override("font_color", Color(1, 0.5, 0.5, 1))
+	hang.add_child(n_d)
+
+	var n_tien = Label.new()
+	n_tien.text = "$%d" % tien
+	n_tien.custom_minimum_size = Vector2(70, 0)
+	n_tien.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	n_tien.add_theme_font_size_override("font_size", 16)
+	n_tien.add_theme_color_override("font_color", Color(0.4, 1.0, 0.5, 1))
+	hang.add_child(n_tien)
+
+	return hang
+
+func _tao_hang_doi_b(con_song: int, tong: int) -> VBoxContainer:
+	var hop = VBoxContainer.new()
+
+	var n_dong_chinh = Label.new()
+	n_dong_chinh.text = "Quân địch (bot)"
+	n_dong_chinh.add_theme_font_size_override("font_size", 16)
+	n_dong_chinh.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	hop.add_child(n_dong_chinh)
+
+	var n_thong_ke = Label.new()
+	n_thong_ke.text = "Còn sống: %d / %d  •  Đã hạ: %d" % [con_song, tong, tong - con_song]
+	n_thong_ke.add_theme_font_size_override("font_size", 14)
+	n_thong_ke.add_theme_color_override("font_color", Color(0.85, 0.85, 0.85, 1))
+	hop.add_child(n_thong_ke)
+
+	return hop
 
 func chet():
 	dang_chet = true
+	so_chet += 1
 	man_hinh_chet.visible = true
+	if bang_diem.visible:
+		_ve_bang_diem()
 	await get_tree().create_timer(THOI_GIAN_CHET).timeout
 	hoi_sinh()
 

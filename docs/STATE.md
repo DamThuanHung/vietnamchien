@@ -69,7 +69,7 @@
 | Điểm A/B | ✅ Done | |
 | HUD bom | ✅ Done | |
 | Thanh gỡ bom | ✅ Done | |
-| Scoreboard (Tab) đầy đủ | ❌ Chỉ placeholder | |
+| Bảng điểm (Tab) đầy đủ | ✅ Done | Hiện tỷ số 2 đội + người chơi + tổng địch |
 
 ### Round / Economy
 | Tính năng | Trạng thái | File |

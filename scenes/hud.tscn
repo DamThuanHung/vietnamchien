@@ -59,6 +59,18 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bang_diem_bg"]
+bg_color = Color(0.05, 0.05, 0.05, 0.92)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_width_bottom = 2
+border_width_top = 2
+border_width_left = 2
+border_width_right = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
 
@@ -384,3 +396,121 @@ horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 32
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="BangDiem" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -220.0
+offset_right = 350.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bang_diem_bg")
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="BangDiem"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginTop" type="Control" parent="BangDiem/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="TieuDe" type="Label" parent="BangDiem/VBox"]
+layout_mode = 2
+text = "BẢNG ĐIỂM"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+
+[node name="TyTan" type="Label" parent="BangDiem/VBox"]
+layout_mode = 2
+text = "ĐỘI A  0  :  0  ĐỘI B    |    Hiệp 1 / 15"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+
+[node name="DuongKe" type="HSeparator" parent="BangDiem/VBox"]
+layout_mode = 2
+
+[node name="HBoxCot" type="HBoxContainer" parent="BangDiem/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ColDoiA" type="VBoxContainer" parent="BangDiem/VBox/HBoxCot"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="HeaderA" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
+layout_mode = 2
+text = "ĐỘI A — VIỆT NAM"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.3, 0.7, 1.0, 1)
+
+[node name="CotTieuDeA" type="HBoxContainer" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
+layout_mode = 2
+
+[node name="ColTen" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA/CotTieuDeA"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tên"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="ColK" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA/CotTieuDeA"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 0)
+text = "Hạ"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="ColD" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA/CotTieuDeA"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 0)
+text = "Chết"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="ColTien" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiA/CotTieuDeA"]
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+text = "Tiền"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="DuongKeA" type="HSeparator" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
+layout_mode = 2
+
+[node name="DanhSachA" type="VBoxContainer" parent="BangDiem/VBox/HBoxCot/ColDoiA"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DuongKeGiua" type="VSeparator" parent="BangDiem/VBox/HBoxCot"]
+layout_mode = 2
+
+[node name="ColDoiB" type="VBoxContainer" parent="BangDiem/VBox/HBoxCot"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="HeaderB" type="Label" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
+layout_mode = 2
+text = "ĐỘI B — ĐỊCH"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+
+[node name="DuongKeB" type="HSeparator" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
+layout_mode = 2
+
+[node name="DanhSachB" type="VBoxContainer" parent="BangDiem/VBox/HBoxCot/ColDoiB"]
+layout_mode = 2
+theme_override_constants/separation = 4
