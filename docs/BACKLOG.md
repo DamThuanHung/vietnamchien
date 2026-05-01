@@ -23,7 +23,7 @@
 | 7 | Model nhân vật cho enemy (cầm súng) | 3 giờ + có model |
 | 8 | Animation bắn cho enemy | 1.5 giờ |
 | 10 | Enemy biết mua súng theo economy | 2 giờ |
-| 11 | Enemy biết đặt/gỡ bom | 2 giờ |
+| 11b | Enemy biết đặt bom (đã có gỡ bom — commit a92d2c2) | 1.5 giờ |
 | 14 | Build Windows test | 1 giờ |
 
 ---
@@ -66,5 +66,9 @@
 - ✅ Bảng kết quả cuối trận: tiêu đề thắng/thua + nút về menu + đếm ngược 15s *(session 30/04)*
 - ✅ Cài đặt (độ nhạy chuột, âm lượng, hiển thị FPS) — autoload CauHinh, lưu/đọc cau_hinh.cfg *(session 30/04)*
 - ✅ Enemy phân phe theo map (Bộ đội Cụ Hồ vs Lính Mỹ/Lính Pháp) — autoload TranDau *(session 01/05)*
-- ✅ Âm thanh bắn súng cho 28/29 vũ khí (mỗi khẩu file riêng, không fallback) — Free Firearm Sound Library + Q009 + 3 Melee + Vincent Sevedge *(session 01/05)*
-- ✅ Âm thanh bước chân + beep bom + tiếng nổ lựu đạn *(session 01/05)*
+- ✅ Âm thanh bắn súng cho 28/29 vũ khí (mỗi khẩu file riêng, không fallback) — Free Firearm Sound Library + Q009 + 3 Melee + Vincent Sevedge *(session 01/05, commit d1e4499)*
+- ✅ Âm thanh bước chân + beep bom + tiếng nổ lựu đạn *(session 01/05, commit d1e4499)*
+- ✅ Enemy biết gỡ bom — state GO_BOM trong enemy.gd *(session 01-02/05, commit a92d2c2)*
+- ✅ Hệ thống 4 slot vũ khí kiểu CS:GO (1/2/3/4 + Q chuyển nhanh) — player.gd *(session 02/05, commit 63f2c4b)*
+- ✅ Vũ khí cận chiến (dao găm slot 3) — gun.gd, dùng tam_tan_cong, không trừ đạn/recoil *(session 02/05, commit 63f2c4b)*
+- ✅ Đổi phím gỡ bom F→E — project.godot *(session 02/05, commit 63f2c4b)*

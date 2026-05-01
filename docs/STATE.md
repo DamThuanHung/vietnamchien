@@ -7,10 +7,10 @@
 
 ## CẬP NHẬT GẦN NHẤT
 
-- **Ngày:** 2026-05-01
-- **Commit gần nhất:** `8b77518` — feat: phân phe theo map (2 phe Bộ đội Cụ Hồ vs Lính Mỹ/Pháp)
-- **Build cuối cùng chạy được:** ✅ Pass smoke test ngày 30/04 + đã test sau mỗi tính năng mới
-- **Session hiện tại:** ĐÃ KẾT THÚC. Buổi siêu năng suất — 8 ghi chốt, 8 hạng mục lớn (xem SESSION_LOG.md).
+- **Ngày:** 2026-05-02
+- **Commit gần nhất:** `63f2c4b` — feat: hệ thống slot vũ khí 1/2/3/4 + Q chuyển nhanh, hỗ trợ cận chiến, đổi gỡ bom F→E
+- **Build cuối cùng chạy được:** ✅ Đã test slot system + dao găm + đổi phím gỡ bom (02/05)
+- **Session hiện tại:** Đang chạy (02/05). Đã dọn 3 commit ngầm chưa ghi (audio, enemy gỡ bom, slot system).
 
 ---
 
@@ -42,8 +42,12 @@
 |---|---|---|
 | Database 1011 dòng | ✅ Done | [weapon_data.gd](../scripts/weapon_data.gd) |
 | Buy menu (B) | ✅ Done | [buy_menu.gd](../scripts/buy_menu.gd) |
-| Lựu đạn (G) | ✅ Done | [grenade.gd](../scripts/grenade.gd) |
-| Bom defuse (F) | ✅ Done | [bomb.gd](../scripts/bomb.gd) |
+| Lựu đạn (slot 4) | ✅ Done | [grenade.gd](../scripts/grenade.gd) |
+| Bom defuse (E) | ✅ Done | [bomb.gd](../scripts/bomb.gd) |
+| Hệ thống 4 slot vũ khí (1/2/3/4 + Q chuyển nhanh) | ✅ Done | [player.gd](../scripts/player.gd) |
+| Vũ khí cận chiến (dao găm slot 3) | ✅ Done | [gun.gd](../scripts/gun.gd) tam_tan_cong, không trừ đạn |
+| Âm thanh bắn (28/29 vũ khí) | ✅ Done | commit d1e4499 |
+| Âm thanh bước chân + beep bom + nổ lựu đạn | ✅ Done | commit d1e4499 |
 
 ### Enemy
 | Tính năng | Trạng thái | File |
@@ -55,7 +59,8 @@
 | Animation bắn | ❌ Chưa | |
 | Phân phe theo map (Mỹ / Pháp) | ✅ Done | TranDau autoload + @export phe_dich, mỗi map 1 phe địch |
 | Biết mua súng | ❌ Chưa | |
-| Biết đặt/gỡ bom | ❌ Chưa | |
+| Biết gỡ bom | ✅ Done | enemy.gd state GO_BOM (commit a92d2c2) |
+| Biết đặt bom | ❌ Chưa | |
 
 ### HUD
 | Tính năng | Trạng thái | File |
@@ -119,13 +124,11 @@
 
 ## NEXT 3 TASKS (lấy từ [BACKLOG.md](BACKLOG.md))
 
-P0 còn lại (cần asset âm thanh):
-1. Thêm âm thanh bắn súng cho 5 súng chính (cần file .ogg/.wav)
-2. Thêm âm thanh bước chân + beep bom
-
 P0 lớn (cần nhiều buổi):
-3. Thiết kế level Hỏa Lò thật (3-4 buổi)
+1. Thiết kế level Hỏa Lò thật (3-4 buổi)
+2. Âm thanh nạp đạn (reload) cho từng súng — cần asset
 
 P1 không cần asset, em làm được:
-4. Enemy biết đặt/gỡ bom (~2 giờ — quan trọng cho chế độ Đặt Bom)
-5. Enemy biết mua súng theo kinh tế (~2 giờ)
+3. Enemy biết mua súng theo economy (~2 giờ)
+4. Enemy biết đặt bom (~1.5 giờ — đã có gỡ bom, đặt thì tương tự ngược)
+5. Animation reload + ADS cho súng (~2 giờ)
