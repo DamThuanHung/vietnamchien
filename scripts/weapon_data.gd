@@ -38,6 +38,8 @@ const SUNG = {
 		"do_giat_doc":          0.0,
 		"do_giat_ngang":        0.0,
 		"toc_do_hoi_phuc":      0.0,
+
+		"am_thanh_ban":         "can_chien/dao_dam.wav",
 	},
 
 	"ma_tau": {
@@ -63,6 +65,8 @@ const SUNG = {
 		"do_giat_doc":          0.0,
 		"do_giat_ngang":        0.0,
 		"toc_do_hoi_phuc":      0.0,
+
+		"am_thanh_ban":         "can_chien/chem_kiem.wav",
 	},
 
 	"luoi_le": {
@@ -88,6 +92,8 @@ const SUNG = {
 		"do_giat_doc":          0.0,
 		"do_giat_ngang":        0.0,
 		"toc_do_hoi_phuc":      0.0,
+
+		"am_thanh_ban":         "can_chien/dao_dam.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -128,6 +134,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.95,
 
 		"he_so_toc_do":         1.0,
+
+		"am_thanh_ban":         "bersa_pistol.wav",
 	},
 
 	"m1911": {
@@ -165,6 +173,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.95,
 
 		"he_so_toc_do":         1.0,
+
+		"am_thanh_ban":         "m1911.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -205,6 +215,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.92,
 
 		"he_so_toc_do":         1.0,
+
+		"am_thanh_ban":         "carl_gustav_smg.wav",
 	},
 
 	"k50m": {
@@ -242,6 +254,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.90,
 
 		"he_so_toc_do":         1.0,
+
+		"am_thanh_ban":         "ppsh.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -282,6 +296,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.97,
 
 		"he_so_toc_do":         0.95,
+
+		"am_thanh_ban":         "enfield_1917.wav",
 	},
 
 	"sks": {
@@ -319,6 +335,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.96,
 
 		"he_so_toc_do":         0.95,
+
+		"am_thanh_ban":         "sks.wav",
 	},
 
 	"ak47": {
@@ -356,6 +374,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.93,
 
 		"he_so_toc_do":         0.95,
+
+		"am_thanh_ban":         "ak47.wav",
 	},
 
 	"m16a1": {
@@ -395,6 +415,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.95,
 
 		"he_so_toc_do":         0.95,
+
+		"am_thanh_ban":         "ar15.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -436,6 +458,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.88,
 
 		"he_so_toc_do":         0.80,
+
+		"am_thanh_ban":         "minigun_lmg.ogg",
 	},
 
 	"rpd": {
@@ -474,6 +498,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.90,
 
 		"he_so_toc_do":         0.82,
+
+		"am_thanh_ban":         "minigun_lmg.ogg",
 	},
 
 	# ───────────────────────────────────────────
@@ -516,6 +542,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.99,
 
 		"he_so_toc_do":         0.90,
+
+		"am_thanh_ban":         "mosin_nagant.wav",
 	},
 
 	"svd": {
@@ -555,6 +583,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.98,
 
 		"he_so_toc_do":         0.88,
+
+		"am_thanh_ban":         "savage_10.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -596,6 +626,8 @@ const SUNG = {
 		"do_chinh_xac_ngoi":    0.88,
 
 		"he_so_toc_do":         0.88,
+
+		"am_thanh_ban":         "m79_glauncher.ogg",
 	},
 
 	# ───────────────────────────────────────────
@@ -629,6 +661,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.28,
 		"do_chinh_xac_ngoi":    0.96,
 		"he_so_toc_do":         0.95,
+		"am_thanh_ban":         "mosin_nagant.wav",  # TẠM: Mosin cùng caliber heavy WW2; thay khi tìm CC0 M1 Garand riêng
 	},
 
 	"m14": {
@@ -659,6 +692,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.25,
 		"do_chinh_xac_ngoi":    0.97,
 		"he_so_toc_do":         0.93,
+		"am_thanh_ban":         "ar15.wav",
 	},
 
 	"car15": {
@@ -689,6 +723,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.32,
 		"do_chinh_xac_ngoi":    0.92,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "ar15.wav",
 	},
 
 	"mas49": {
@@ -719,6 +754,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.28,
 		"do_chinh_xac_ngoi":    0.95,
 		"he_so_toc_do":         0.95,
+		"am_thanh_ban":         "ar15.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -752,6 +788,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.38,
 		"do_chinh_xac_ngoi":    0.88,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "carl_gustav_smg.wav",
 	},
 
 	"ppsh41": {
@@ -782,6 +819,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.35,
 		"do_chinh_xac_ngoi":    0.86,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "ppsh.wav",
 	},
 
 	"pps43": {
@@ -812,6 +850,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.38,
 		"do_chinh_xac_ngoi":    0.89,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "ppsh.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -846,6 +885,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.22,
 		"do_chinh_xac_ngoi":    0.90,
 		"he_so_toc_do":         0.82,
+		"am_thanh_ban":         "minigun_lmg.ogg",
 	},
 
 	# ───────────────────────────────────────────
@@ -879,6 +919,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.33,
 		"do_chinh_xac_ngoi":    0.93,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "ruger_revolver.wav",
 	},
 
 	"tt33": {
@@ -909,6 +950,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.33,
 		"do_chinh_xac_ngoi":    0.93,
 		"he_so_toc_do":         1.0,
+		"am_thanh_ban":         "cz_pistol.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -944,6 +986,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.12,
 		"do_chinh_xac_ngoi":    0.98,
 		"he_so_toc_do":         0.88,
+		"am_thanh_ban":         "tikka.wav",
 	},
 
 	# ───────────────────────────────────────────
@@ -978,6 +1021,7 @@ const SUNG = {
 		"do_chinh_xac_chay":    0.18,
 		"do_chinh_xac_ngoi":    0.90,
 		"he_so_toc_do":         0.75,
+		"am_thanh_ban":         "rpg7_rlauncher.ogg",
 	},
 
 	# ───────────────────────────────────────────

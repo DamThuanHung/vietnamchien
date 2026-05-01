@@ -9,6 +9,16 @@ const CAO_DUNG = 1.6
 const CAO_NGOI = 0.9
 const TAM_GO_BOM = 2.5
 
+const DUONG_DAN_BUOC_CHAN = "res://assets/sounds/buoc_chan/"
+const FILE_BUOC_CHAN = [
+	"buoc_chan_giay_1.ogg",
+	"buoc_chan_giay_2.ogg",
+	"buoc_chan_giay_3.ogg",
+	"buoc_chan_giay_4.ogg",
+]
+const KHOANG_CACH_BUOC_CHAY = 1.6
+const KHOANG_CACH_BUOC_DI = 2.2
+
 var camera: Camera3D
 var dang_ngoi = false
 var dang_co_bom = true
@@ -17,6 +27,10 @@ var dang_cam_luu_dan = false
 var bom_gan: Node3D = null
 var so_luu_dan = 2
 
+var streams_buoc_chan: Array = []
+var am_thanh_buoc_chan: AudioStreamPlayer
+var khoang_cach_da_di = 0.0
+
 @onready var collision = $CollisionShape3D
 
 func _ready():
@@ -24,13 +38,25 @@ func _ready():
 	camera = $Camera3D
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("nguoi_choi")
+	_khoi_tao_am_thanh_buoc_chan()
 	_ket_noi_he_thong()
+
+func _khoi_tao_am_thanh_buoc_chan():
+	am_thanh_buoc_chan = AudioStreamPlayer.new()
+	am_thanh_buoc_chan.bus = "Master"
+	add_child(am_thanh_buoc_chan)
+	for ten_file in FILE_BUOC_CHAN:
+		var duong_dan = DUONG_DAN_BUOC_CHAN + ten_file
+		if ResourceLoader.exists(duong_dan):
+			streams_buoc_chan.append(load(duong_dan))
 
 func _ket_noi_he_thong():
 	var buy_menu = $BuyMenu
 	var gun = $Camera3D/Gun
 	var economy = $Economy
 	var weapon_data = load("res://scripts/weapon_data.gd").new()
+
+	gun.trang_bi_sung(weapon_data.SUNG["ak47"])
 
 	economy.tien_thay_doi.connect(func(so_tien):
 		buy_menu.tien_hien_tai = so_tien
@@ -165,6 +191,26 @@ func _physics_process(delta):
 	velocity.z = huong.z * toc_do
 
 	move_and_slide()
+	_xu_ly_buoc_chan(delta)
+
+func _xu_ly_buoc_chan(delta: float):
+	if streams_buoc_chan.is_empty():
+		return
+	if not is_on_floor():
+		return
+	var van_toc_phang = Vector2(velocity.x, velocity.z).length()
+	if van_toc_phang < 0.5:
+		return
+	khoang_cach_da_di += van_toc_phang * delta
+	var dang_di_nhe = Input.is_action_pressed("chay")
+	var nguong = KHOANG_CACH_BUOC_DI if dang_di_nhe else KHOANG_CACH_BUOC_CHAY
+	if khoang_cach_da_di < nguong:
+		return
+	khoang_cach_da_di = 0.0
+	am_thanh_buoc_chan.stream = streams_buoc_chan.pick_random()
+	am_thanh_buoc_chan.pitch_scale = randf_range(0.95, 1.08)
+	am_thanh_buoc_chan.volume_db = -10.0 if dang_di_nhe else -3.0
+	am_thanh_buoc_chan.play()
 
 func _kiem_tra_bom_gan():
 	bom_gan = null

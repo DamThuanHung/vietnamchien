@@ -18,6 +18,10 @@ var muzzle_flash: OmniLight3D
 var player: CharacterBody3D
 var buy_menu: CanvasLayer
 
+const DUONG_DAN_AM_THANH_GOC = "res://assets/sounds/"
+var am_thanh_ban_player: AudioStreamPlayer3D
+var stream_ban: AudioStream = null
+
 # Recoil
 var giat_hien_tai = Vector2.ZERO
 var giat_muc_tieu = Vector2.ZERO
@@ -33,6 +37,10 @@ func _ready():
 	muzzle_flash = $MuzzleFlash
 	player = get_parent().get_parent()
 	buy_menu = player.get_node_or_null("BuyMenu")
+	am_thanh_ban_player = AudioStreamPlayer3D.new()
+	am_thanh_ban_player.unit_size = 30.0
+	am_thanh_ban_player.max_db = 6.0
+	add_child(am_thanh_ban_player)
 
 func _process(delta):
 	if get_tree().paused:
@@ -69,7 +77,25 @@ func trang_bi_sung(data: Dictionary):
 	dang_ngam = false
 	dang_nap = false
 	co_the_ban = true
+	_nap_am_thanh_ban(data.get("am_thanh_ban", ""))
 	_cap_nhat_hud_dan()
+
+func _nap_am_thanh_ban(ten_file: String):
+	if ten_file == "":
+		stream_ban = null
+		am_thanh_ban_player.stream = null
+		return
+	var duong_dan = DUONG_DAN_AM_THANH_GOC
+	if "/" in ten_file:
+		duong_dan += ten_file
+	else:
+		duong_dan += "sung/" + ten_file
+	if ResourceLoader.exists(duong_dan):
+		stream_ban = load(duong_dan)
+		am_thanh_ban_player.stream = stream_ban
+	else:
+		stream_ban = null
+		am_thanh_ban_player.stream = null
 
 func _tinh_do_giat(loai: String) -> float:
 	match loai:
@@ -116,6 +142,9 @@ func ban():
 	dan_hien_tai -= 1
 	so_phat_lien_tiep += 1
 	muzzle_flash.flash()
+	if stream_ban:
+		am_thanh_ban_player.pitch_scale = randf_range(0.95, 1.05)
+		am_thanh_ban_player.play()
 	_ap_dung_recoil()
 	_cap_nhat_hud_dan()
 

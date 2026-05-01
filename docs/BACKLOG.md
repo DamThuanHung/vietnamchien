@@ -9,9 +9,8 @@
 
 | # | Task | Ước lượng | Phụ thuộc |
 |---|---|---|---|
-| 2 | Thêm âm thanh bắn súng cho 3-5 súng chính (AK-47, M16, K54, Mosin, RPG-7) | 1.5 giờ | Có file .ogg/.wav |
 | 4 | Thiết kế level Hỏa Lò thật (thay skeleton) — phòng giam, sân trong, 2 site bom A/B | 3-4 buổi | — |
-| 5 | Thêm âm thanh bước chân + beep bom | 1 giờ | Có file âm |
+| 22 | Thêm âm thanh nạp đạn (reload) cho từng súng | 1-1.5 giờ | Tải file reload riêng |
 
 ---
 
@@ -19,6 +18,7 @@
 
 | # | Task | Ước lượng |
 |---|---|---|
+| 23 | Thay tiếng M1 Garand (đang dùng tạm Mosin) — tải từ freesound.org Rijam CC0 | 30 phút | Cần tài khoản freesound |
 | 6 | Animation reload + ADS cho súng | 2 giờ |
 | 7 | Model nhân vật cho enemy (cầm súng) | 3 giờ + có model |
 | 8 | Animation bắn cho enemy | 1.5 giờ |
@@ -66,3 +66,5 @@
 - ✅ Bảng kết quả cuối trận: tiêu đề thắng/thua + nút về menu + đếm ngược 15s *(session 30/04)*
 - ✅ Cài đặt (độ nhạy chuột, âm lượng, hiển thị FPS) — autoload CauHinh, lưu/đọc cau_hinh.cfg *(session 30/04)*
 - ✅ Enemy phân phe theo map (Bộ đội Cụ Hồ vs Lính Mỹ/Lính Pháp) — autoload TranDau *(session 01/05)*
+- ✅ Âm thanh bắn súng cho 28/29 vũ khí (mỗi khẩu file riêng, không fallback) — Free Firearm Sound Library + Q009 + 3 Melee + Vincent Sevedge *(session 01/05)*
+- ✅ Âm thanh bước chân + beep bom + tiếng nổ lựu đạn *(session 01/05)*

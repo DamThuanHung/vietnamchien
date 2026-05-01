@@ -3,6 +3,7 @@ extends RigidBody3D
 const BAN_KINH_NO = 5.0
 const SAT_THUONG_TOI_DA = 180
 const THOI_GIAN_NO = 3.0
+const DUONG_DAN_AM_THANH_NO = "res://assets/sounds/luu_dan/no_lon.ogg"
 
 var da_no = false
 
@@ -41,6 +42,21 @@ func _no():
 	anh_sang.omni_range = 10.0
 	get_tree().current_scene.add_child(anh_sang)
 	anh_sang.global_position = global_position
+
+	_phat_am_thanh_no()
+
 	await get_tree().create_timer(0.4).timeout
 	anh_sang.queue_free()
 	queue_free()
+
+func _phat_am_thanh_no():
+	if not ResourceLoader.exists(DUONG_DAN_AM_THANH_NO):
+		return
+	var am_thanh = AudioStreamPlayer3D.new()
+	am_thanh.stream = load(DUONG_DAN_AM_THANH_NO)
+	am_thanh.unit_size = 25.0
+	am_thanh.max_db = 8.0
+	get_tree().current_scene.add_child(am_thanh)
+	am_thanh.global_position = global_position
+	am_thanh.play()
+	am_thanh.finished.connect(am_thanh.queue_free)
