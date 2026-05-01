@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 CauHinh="*res://scripts/cau_hinh.gd"
 TranDau="*res://scripts/tran_dau.gd"
+VfxManager="*res://scripts/vfx_manager.gd"
 
 [input]
 

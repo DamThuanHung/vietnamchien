@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-05-02
+
+### #009 — Chiến lược Vertical Slice cho visual upgrade
+- **Quyết định:** Polish 1 cảnh nhỏ (1 phòng + 1 súng + 1 enemy) lên ~75% CS:GO 2 trước trong file `maps/vertical_slice.tscn`, sau đó nhân kỹ thuật ra cho map_test/hoa_lo và 28 súng còn lại.
+- **Lý do:** Tránh polish nhẹ 100 chỗ rồi không thấy đâu vào đâu. Vertical Slice chứng minh được cho user là engine + asset có thể đạt tới mức đó, sau đó nhân ra có template.
+- **Đề xuất:** Em (Claude)
+- **Áp dụng:** [maps/vertical_slice.tscn](../maps/vertical_slice.tscn) — phòng 10x10x3m + lighting AAA + VFX bắn ngon
+
+### #008 — Mục tiêu visual = ~75% CS:GO 2 (không phải 100%)
+- **Quyết định:** Đặt north star visual cho game = CS:GO 2 nhưng mục tiêu thực tế là đạt ~70-80% chứ không phải 100%.
+- **Lý do:**
+  1. Em không tạo được asset 3D (model, texture, animation) — phải dựa vào CC0/CC-BY từ Sketchfab/Polyhaven/Mixamo
+  2. Godot 4.6 ≠ Source 2 — một số kỹ thuật của CS2 (volumetric smoke vật lý, network rollback) không có sẵn
+  3. Solo dev 1-2h/ngày ≠ 50-100 dev Valve nhiều năm
+- **Đề xuất:** Em (Claude) — giải thích sự thật, không hứa quá
+- **Áp dụng:** Mọi đề xuất visual đối chiếu CS:GO 2, asset từ CC0, lộ trình 6-9 tháng tới alpha test
+
 ## 2026-05-01
 
 ### #007 — Game chỉ có 2 phe trong 1 trận, phe địch thay đổi theo map

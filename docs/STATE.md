@@ -8,9 +8,14 @@
 ## CẬP NHẬT GẦN NHẤT
 
 - **Ngày:** 2026-05-02
-- **Commit gần nhất:** `63f2c4b` — feat: hệ thống slot vũ khí 1/2/3/4 + Q chuyển nhanh, hỗ trợ cận chiến, đổi gỡ bom F→E
-- **Build cuối cùng chạy được:** ✅ Đã test slot system + dao găm + đổi phím gỡ bom (02/05)
-- **Session hiện tại:** Đang chạy (02/05). Đã dọn 3 commit ngầm chưa ghi (audio, enemy gỡ bom, slot system).
+- **Commit gần nhất:** sẽ commit ở `/ket_thuc` buổi này — visual upgrade + Vertical Slice + GitHub remote setup
+- **Build cuối cùng chạy được:** ✅ vertical_slice.tscn chạy với lighting AAA + VFX bắn ngon
+- **Session hiện tại:** ĐÃ KẾT THÚC. Buổi visual upgrade lớn — 13 hạng mục (xem SESSION_LOG.md).
+- **Repo cloud:** https://github.com/DamThuanHung/vietnamchien (private, đã push)
+
+## ĐANG DỞ (ưu tiên đầu buổi sau)
+
+- **Model AK-47 không hiển thị trong viewport** dù file `assets/models/ak47.glb` (9.7MB, từ Sketchfab) đã copy vào project và instance trong `scenes/player.tscn`. Đã thử scale 1.0 → 0.3 → 0.05, vẫn không thấy. Cần làm **Test 1** đầu buổi sau: trong Godot FileSystem, double-click `ak47.glb` để preview model — biết model có hiển thị được không, từ đó adjust transform.
 
 ---
 
@@ -124,11 +129,12 @@
 
 ## NEXT 3 TASKS (lấy từ [BACKLOG.md](BACKLOG.md))
 
-P0 lớn (cần nhiều buổi):
-1. Thiết kế level Hỏa Lò thật (3-4 buổi)
-2. Âm thanh nạp đạn (reload) cho từng súng — cần asset
+P0 đầu buổi sau:
+1. **Fix model AK-47 hiển thị** trong vertical_slice.tscn (Test 1 → adjust transform)
 
-P1 không cần asset, em làm được:
-3. Enemy biết mua súng theo economy (~2 giờ)
-4. Enemy biết đặt bom (~1.5 giờ — đã có gỡ bom, đặt thì tương tự ngược)
-5. Animation reload + ADS cho súng (~2 giờ)
+P0 lớn — Vertical Slice tiếp:
+2. Tải texture tường gạch nhà tù PBR từ ambientCG → áp vào vertical_slice.tscn (Tầng 2)
+3. Animation reload + ADS cho AK-47 (Tầng 4) — tải animation từ Mixamo
+
+P1 — fix code logic (10 bug đã phát hiện):
+4. Burst M16A1, AoE M79/RPG-7, headshot multiplier, recoil chi tiết, accuracy tư thế, hold breath, warm-up súng máy, cận chiến chuột phải, lựu đạn data lệch, scope x4/x8

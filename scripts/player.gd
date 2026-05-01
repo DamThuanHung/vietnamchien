@@ -40,6 +40,22 @@ var streams_buoc_chan: Array = []
 var am_thanh_buoc_chan: AudioStreamPlayer
 var khoang_cach_da_di = 0.0
 
+# ──── Camera mechanics: headbob + sway + shake ────
+const HEADBOB_BIEN_DO_DUNG = 0.025      # đứng yên thì 0
+const HEADBOB_BIEN_DO_DI = 0.03
+const HEADBOB_BIEN_DO_CHAY = 0.06
+const HEADBOB_TAN_SO_DI = 7.0
+const HEADBOB_TAN_SO_CHAY = 11.0
+const SWAY_LERP_SPEED = 8.0
+const SWAY_AMOUNT = 0.0035              # độ sway theo chuột
+
+var _headbob_time: float = 0.0
+var _camera_y_goc: float = CAO_DUNG
+var _shake_offset: Vector3 = Vector3.ZERO
+var _shake_target: Vector3 = Vector3.ZERO
+var _sway_offset: Vector2 = Vector2.ZERO
+var _sway_target: Vector2 = Vector2.ZERO
+
 @onready var collision = $CollisionShape3D
 
 func _ready():
@@ -164,6 +180,9 @@ func _input(event):
 		rotate_y(-event.relative.x * do_nhay)
 		camera.rotate_x(-event.relative.y * do_nhay)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2.2, PI/2.2)
+		# Weapon sway target — chuột nhanh thì sway nhiều hơn
+		_sway_target.x = clamp(-event.relative.x * SWAY_AMOUNT, -0.05, 0.05)
+		_sway_target.y = clamp(-event.relative.y * SWAY_AMOUNT, -0.05, 0.05)
 
 	if event.is_action_pressed("ngoi"):
 		_bat_ngoi()
@@ -249,6 +268,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 	_xu_ly_buoc_chan(delta)
+	_xu_ly_camera_effects(delta)
 
 func _xu_ly_buoc_chan(delta: float):
 	if streams_buoc_chan.is_empty():
@@ -285,12 +305,51 @@ func _kiem_tra_bom_gan():
 func _bat_ngoi():
 	dang_ngoi = true
 	collision.scale.y = 0.5
-	camera.position.y = CAO_NGOI
+	_camera_y_goc = CAO_NGOI
 
 func _dung_len():
 	dang_ngoi = false
 	collision.scale.y = 1.0
-	camera.position.y = CAO_DUNG
+	_camera_y_goc = CAO_DUNG
+
+func _xu_ly_camera_effects(delta: float):
+	var van_toc_phang = Vector2(velocity.x, velocity.z).length()
+	# Headbob
+	var bien_do = HEADBOB_BIEN_DO_DUNG
+	var tan_so = 0.0
+	if van_toc_phang > 0.5 and is_on_floor():
+		var dang_di_nhe = Input.is_action_pressed("chay")
+		bien_do = HEADBOB_BIEN_DO_DI if dang_di_nhe else HEADBOB_BIEN_DO_CHAY
+		tan_so = HEADBOB_TAN_SO_DI if dang_di_nhe else HEADBOB_TAN_SO_CHAY
+	if tan_so > 0.0:
+		_headbob_time += delta * tan_so
+	var headbob_y = sin(_headbob_time) * bien_do
+	var headbob_x = sin(_headbob_time * 0.5) * bien_do * 0.55
+	# Shake decay (rung khi bắn)
+	_shake_target = _shake_target.lerp(Vector3.ZERO, delta * 8.0)
+	_shake_offset = _shake_offset.lerp(_shake_target, delta * 18.0)
+	# Sway decay (đung đưa khi xoay chuột)
+	_sway_target = _sway_target.lerp(Vector2.ZERO, delta * SWAY_LERP_SPEED)
+	_sway_offset = _sway_offset.lerp(_sway_target, delta * SWAY_LERP_SPEED * 1.5)
+	# Áp dụng vào camera
+	camera.position.y = _camera_y_goc + headbob_y + _shake_offset.y + _sway_offset.y
+	camera.position.x = headbob_x + _shake_offset.x + _sway_offset.x
+	camera.position.z = _shake_offset.z
+
+func rung_camera_khi_ban(loai_sung_arg: String):
+	var luc_rung = 0.04
+	match loai_sung_arg:
+		"sung_luc":     luc_rung = 0.025
+		"tieu_lien":    luc_rung = 0.03
+		"sung_truong":  luc_rung = 0.045
+		"sung_may":     luc_rung = 0.06
+		"ban_tia":      luc_rung = 0.09
+		"phong_luu":    luc_rung = 0.1
+	_shake_target += Vector3(
+		randf_range(-luc_rung, luc_rung),
+		randf_range(-luc_rung * 0.5, luc_rung * 1.2),
+		randf_range(-luc_rung * 0.3, luc_rung * 0.3)
+	)
 
 func _dat_bom():
 	var bom_scene = load("res://scenes/bomb.tscn")

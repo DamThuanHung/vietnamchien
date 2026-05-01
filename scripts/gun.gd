@@ -41,6 +41,11 @@ func _ready():
 	am_thanh_ban_player.unit_size = 30.0
 	am_thanh_ban_player.max_db = 6.0
 	add_child(am_thanh_ban_player)
+	# Nếu có model thật (ModelAK47) → ẩn các viewmodel primitive cũ
+	if has_node("ModelAK47"):
+		for con in get_children():
+			if con is MeshInstance3D:
+				con.visible = false
 
 func _process(delta):
 	if get_tree().paused:
@@ -152,6 +157,7 @@ func ban():
 		am_thanh_ban_player.play()
 	if loai_sung != "can_chien":
 		_ap_dung_recoil()
+		_camera_shake_va_fov_punch()
 	_cap_nhat_hud_dan()
 
 	var hud = player.get_node_or_null("HUD")
@@ -174,20 +180,38 @@ func ban():
 	query.exclude = [player]
 	var ket_qua = space_state.intersect_ray(query)
 
+	# Tracer (vệt đạn) — chỉ cho súng xa
+	var diem_cuoi_tracer = ket_qua.position if ket_qua else den
+	if loai_sung != "can_chien":
+		var nong_sung = muzzle_flash.global_position
+		VfxManager.tracer(nong_sung, diem_cuoi_tracer, get_tree().current_scene)
+
 	if ket_qua:
-		if ket_qua.collider.has_method("nhan_sat_thuong"):
+		var trung_dich = ket_qua.collider.has_method("nhan_sat_thuong")
+		if trung_dich:
 			ket_qua.collider.nhan_sat_thuong(sat_thuong)
+			# Blood splatter tại điểm trúng
+			VfxManager.blood_splatter(ket_qua.position, ket_qua.normal, get_tree().current_scene)
 			if ket_qua.collider.get("dang_song") == false:
 				if hud:
 					var ten_dich = ket_qua.collider.get("ten_hien_thi")
 					if ten_dich == null or ten_dich == "":
 						ten_dich = ket_qua.collider.name
 					hud.them_kill(ten_dich, loai_sung)
-		if loai_sung != "can_chien":
-			tao_hieu_ung_trung_dan(ket_qua.position, ket_qua.normal)
+		else:
+			# Trúng tường/sàn — bullet impact (spark + dust + decal + flash)
+			if loai_sung != "can_chien":
+				VfxManager.bullet_impact(ket_qua.position, ket_qua.normal, get_tree().current_scene)
 
 	await get_tree().create_timer(toc_do_ban).timeout
 	co_the_ban = true
+
+func _camera_shake_va_fov_punch():
+	if not is_instance_valid(player):
+		return
+	# Báo player rung camera + FOV punch (player.gd xử lý vì player giữ camera)
+	if player.has_method("rung_camera_khi_ban"):
+		player.rung_camera_khi_ban(loai_sung)
 
 func nap_dan():
 	if dan_toi_da == 0 or dang_nap:

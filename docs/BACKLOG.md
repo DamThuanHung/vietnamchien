@@ -9,6 +9,9 @@
 
 | # | Task | Ước lượng | Phụ thuộc |
 |---|---|---|---|
+| 30 | **Fix model AK-47 hiển thị** trong vertical_slice (Test 1 → adjust transform) | 30 phút - 1h | — |
+| 31 | Vertical Slice Tầng 2: tải texture tường gạch nhà tù từ ambientCG → áp PBR | 1-1.5h | Anh tải 5-7 texture |
+| 32 | Vertical Slice Tầng 4: animation reload + ADS cho AK-47 từ Mixamo | 2-3h | Anh tải animation |
 | 4 | Thiết kế level Hỏa Lò thật (thay skeleton) — phòng giam, sân trong, 2 site bom A/B | 3-4 buổi | — |
 | 22 | Thêm âm thanh nạp đạn (reload) cho từng súng | 1-1.5 giờ | Tải file reload riêng |
 
@@ -25,6 +28,9 @@
 | 10 | Enemy biết mua súng theo economy | 2 giờ |
 | 11b | Enemy biết đặt bom (đã có gỡ bom — commit a92d2c2) | 1.5 giờ |
 | 14 | Build Windows test | 1 giờ |
+| 33 | **10 bug code logic không khớp data** — burst M16A1, AoE M79/RPG-7, headshot multiplier, recoil chi tiết, accuracy tư thế, hold breath sniper, warm-up súng máy, cận chiến chuột phải, lựu đạn data lệch, scope x4/x8 | 4-6 buổi gộp |
+| 34 | Vertical Slice Tầng 5: model nhân vật + animation từ Mixamo cho enemy | 3-4 buổi |
+| 35 | Vertical Slice Tầng 6: post-processing final (color grading film, sharpen, motion blur tinh tế) | 1 buổi |
 
 ---
 
