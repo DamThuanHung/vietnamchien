@@ -19,6 +19,11 @@ const FILE_BUOC_CHAN = [
 const KHOANG_CACH_BUOC_CHAY = 1.6
 const KHOANG_CACH_BUOC_DI = 2.2
 
+const SLOT_CHINH = 1
+const SLOT_LUC = 2
+const SLOT_CAN_CHIEN = 3
+const SLOT_LUU_DAN = 4
+
 var camera: Camera3D
 var dang_ngoi = false
 var dang_co_bom = true
@@ -26,6 +31,10 @@ var dang_tam_dung = false
 var dang_cam_luu_dan = false
 var bom_gan: Node3D = null
 var so_luu_dan = 2
+
+var kho_vu_khi: Dictionary = {SLOT_CHINH: null, SLOT_LUC: null, SLOT_CAN_CHIEN: null, SLOT_LUU_DAN: null}
+var slot_dang_cam: int = SLOT_CHINH
+var slot_truoc_do: int = SLOT_CAN_CHIEN
 
 var streams_buoc_chan: Array = []
 var am_thanh_buoc_chan: AudioStreamPlayer
@@ -52,11 +61,14 @@ func _khoi_tao_am_thanh_buoc_chan():
 
 func _ket_noi_he_thong():
 	var buy_menu = $BuyMenu
-	var gun = $Camera3D/Gun
 	var economy = $Economy
 	var weapon_data = load("res://scripts/weapon_data.gd").new()
 
-	gun.trang_bi_sung(weapon_data.SUNG["ak47"])
+	# Khởi tạo kho: slot 3 luôn có dao găm, slot 1 mặc định AK-47
+	kho_vu_khi[SLOT_CAN_CHIEN] = weapon_data.SUNG["dao_gam"]
+	kho_vu_khi[SLOT_CHINH] = weapon_data.SUNG["ak47"]
+	slot_dang_cam = SLOT_CHINH
+	$Camera3D/Gun.trang_bi_sung(kho_vu_khi[SLOT_CHINH])
 
 	economy.tien_thay_doi.connect(func(so_tien):
 		buy_menu.tien_hien_tai = so_tien
@@ -70,13 +82,49 @@ func _ket_noi_he_thong():
 		var data = weapon_data.SUNG[ma_sung]
 		economy.tru_tien(data["gia"])
 		buy_menu.tien_hien_tai = economy.tien
-		gun.trang_bi_sung(data)
+		var slot = _slot_cua_loai(data.get("loai", ""))
+		if slot == SLOT_LUU_DAN:
+			so_luu_dan += 1
+			$HUD.hien_thong_bao_nhanh("Lựu đạn (%d)  [4 = cầm, Chuột trái = Ném]" % so_luu_dan)
+		else:
+			kho_vu_khi[slot] = data
+			chuyen_slot(slot)
 	)
 
 	$HUD.on_kill.connect(func(loai_vu_khi):
 		var thuong = economy.them_tien("kill_" + loai_vu_khi)
 		$HUD.hien_thuong_tien(thuong)
 	)
+
+func _slot_cua_loai(loai: String) -> int:
+	match loai:
+		"sung_luc":  return SLOT_LUC
+		"can_chien": return SLOT_CAN_CHIEN
+		"luu_dan":   return SLOT_LUU_DAN
+		_:           return SLOT_CHINH
+
+func chuyen_slot(slot_moi: int):
+	if slot_moi == slot_dang_cam:
+		return
+	if not kho_vu_khi.has(slot_moi):
+		return
+	if slot_moi == SLOT_LUU_DAN:
+		if so_luu_dan <= 0:
+			$HUD.hien_thong_bao_nhanh("Hết lựu đạn!")
+			return
+		slot_truoc_do = slot_dang_cam
+		slot_dang_cam = SLOT_LUU_DAN
+		dang_cam_luu_dan = true
+		$HUD.hien_thong_bao_nhanh("Lựu đạn (%d)  [Chuột trái = Ném]" % so_luu_dan)
+		return
+	var data = kho_vu_khi[slot_moi]
+	if data == null:
+		$HUD.hien_thong_bao_nhanh("Slot %d trống" % slot_moi)
+		return
+	slot_truoc_do = slot_dang_cam
+	slot_dang_cam = slot_moi
+	dang_cam_luu_dan = false
+	$Camera3D/Gun.trang_bi_sung(data)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -131,8 +179,17 @@ func _input(event):
 		if bom_gan != null and is_instance_valid(bom_gan):
 			bom_gan.dung_go()
 
-	if event.is_action_pressed("nem_luu_dan"):
-		_toggle_cam_luu_dan()
+	# Phím chuyển slot vũ khí (CS:GO style)
+	if event.is_action_pressed("chon_slot_1"):
+		chuyen_slot(SLOT_CHINH)
+	if event.is_action_pressed("chon_slot_2"):
+		chuyen_slot(SLOT_LUC)
+	if event.is_action_pressed("chon_slot_3"):
+		chuyen_slot(SLOT_CAN_CHIEN)
+	if event.is_action_pressed("chon_slot_4"):
+		chuyen_slot(SLOT_LUU_DAN)
+	if event.is_action_pressed("chuyen_nhanh"):
+		chuyen_slot(slot_truoc_do)
 
 	if event.is_action_pressed("ban") and dang_cam_luu_dan:
 		_nem_luu_dan()
@@ -221,7 +278,7 @@ func _kiem_tra_bom_gan():
 			break
 
 	if bom_gan != null and not dang_co_bom:
-		$HUD.set_hint("[F] Gỡ bom")
+		$HUD.set_hint("[E] Gỡ bom")
 	else:
 		$HUD.set_hint("")
 
@@ -241,17 +298,7 @@ func _dat_bom():
 	get_tree().current_scene.add_child(bom)
 	bom.global_position = global_position + Vector3(0, -0.5, 0)
 	dang_co_bom = false
-	$HUD.hien_thong_bao_nhanh("Đã đặt bom! [F = Gỡ]")
-
-func _toggle_cam_luu_dan():
-	if so_luu_dan <= 0:
-		$HUD.hien_thong_bao_nhanh("Hết lựu đạn!")
-		return
-	dang_cam_luu_dan = not dang_cam_luu_dan
-	if dang_cam_luu_dan:
-		$HUD.hien_thong_bao_nhanh("Lựu đạn [Chuột trái = Ném]")
-	else:
-		$HUD.hien_thong_bao_nhanh("")
+	$HUD.hien_thong_bao_nhanh("Đã đặt bom! [E = Gỡ]")
 
 func _nem_luu_dan():
 	dang_cam_luu_dan = false
@@ -263,3 +310,9 @@ func _nem_luu_dan():
 	var huong = -camera.global_transform.basis.z
 	luu_dan.nem(huong)
 	$HUD.hien_thong_bao_nhanh("Lựu đạn (%d còn lại)" % so_luu_dan)
+	# Tự chuyển về slot trước khi ném xong
+	if so_luu_dan > 0:
+		# Vẫn còn lựu đạn — giữ slot 4
+		pass
+	else:
+		chuyen_slot(slot_truoc_do)

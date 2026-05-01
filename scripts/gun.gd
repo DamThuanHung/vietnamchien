@@ -63,12 +63,16 @@ func _xu_ly_ads(delta):
 
 func trang_bi_sung(data: Dictionary):
 	sat_thuong = data["sat_thuong"]
-	tam_ban = data.get("tam_ban", 100.0)
+	loai_sung = data.get("loai", "sung_truong")
+	# Cận chiến dùng tam_tan_cong, súng dùng tam_ban
+	if loai_sung == "can_chien":
+		tam_ban = data.get("tam_tan_cong", 1.8)
+	else:
+		tam_ban = data.get("tam_ban", 100.0)
 	toc_do_ban = data.get("toc_do_ban", 0.1)
 	dan_toi_da = data.get("dan_trong_bang", 30)
 	dan_hien_tai = dan_toi_da
 	ten_sung = data["ten"]
-	loai_sung = data.get("loai", "sung_truong")
 	thoi_gian_nap = data.get("thoi_gian_nap", 2.5)
 	toc_do_ads = data.get("toc_do_ngam", 0.22)
 	do_zoom_ads = data.get("do_zoom_ngam", 62.0)
@@ -119,15 +123,15 @@ func _input(event):
 		return
 	# Bắn
 	if event.is_action_pressed("ban") and co_the_ban and not dang_nap:
-		if dan_hien_tai > 0:
+		if loai_sung == "can_chien" or dan_hien_tai > 0:
 			ban()
 		else:
 			_tu_dong_nap()
 	if event.is_action_released("ban"):
 		so_phat_lien_tiep = 0
 
-	# Nạp đạn
-	if event.is_action_pressed("nap_dan") and not dang_nap:
+	# Nạp đạn (cận chiến không nạp được)
+	if event.is_action_pressed("nap_dan") and not dang_nap and loai_sung != "can_chien":
 		if dan_hien_tai < dan_toi_da:
 			nap_dan()
 
@@ -139,13 +143,15 @@ func _input(event):
 
 func ban():
 	co_the_ban = false
-	dan_hien_tai -= 1
+	if loai_sung != "can_chien":
+		dan_hien_tai -= 1
+		muzzle_flash.flash()
 	so_phat_lien_tiep += 1
-	muzzle_flash.flash()
 	if stream_ban:
 		am_thanh_ban_player.pitch_scale = randf_range(0.95, 1.05)
 		am_thanh_ban_player.play()
-	_ap_dung_recoil()
+	if loai_sung != "can_chien":
+		_ap_dung_recoil()
 	_cap_nhat_hud_dan()
 
 	var hud = player.get_node_or_null("HUD")
@@ -177,7 +183,8 @@ func ban():
 					if ten_dich == null or ten_dich == "":
 						ten_dich = ket_qua.collider.name
 					hud.them_kill(ten_dich, loai_sung)
-		tao_hieu_ung_trung_dan(ket_qua.position, ket_qua.normal)
+		if loai_sung != "can_chien":
+			tao_hieu_ung_trung_dan(ket_qua.position, ket_qua.normal)
 
 	await get_tree().create_timer(toc_do_ban).timeout
 	co_the_ban = true

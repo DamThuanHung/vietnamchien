@@ -100,11 +100,15 @@ Mỗi `.tscn` có 1 `.gd` cùng tên trong `scripts/`. `weapon_data.gd` là **da
 | `jump` | Space | Nhảy |
 | `chay` | Shift | **Đi nhẹ** (ngược CS truyền thống — Shift = walk, mặc định = chạy) |
 | `ngoi` | Ctrl | Crouch |
-| `ban` | Chuột trái | Bắn / ném lựu đạn |
+| `ban` | Chuột trái | Bắn / ném lựu đạn / chém cận chiến |
 | `ngam` | Chuột phải | ADS |
-| `nap_dan` | R | Reload |
-| `dat_bom` | F | Đặt bom (nếu có) / Gỡ bom (nếu trong tầm 2.5m) |
-| `nem_luu_dan` | G | Toggle cầm lựu đạn → click chuột trái để ném |
+| `nap_dan` | R | Reload (cận chiến không nạp được) |
+| `dat_bom` | E | Đặt bom (nếu có) / Gỡ bom (nếu trong tầm 2.5m) |
+| `chon_slot_1` | 1 | Chọn slot súng chính |
+| `chon_slot_2` | 2 | Chọn slot súng lục |
+| `chon_slot_3` | 3 | Chọn slot cận chiến (mặc định dao găm) |
+| `chon_slot_4` | 4 | Chọn slot lựu đạn (chuột trái = ném) |
+| `chuyen_nhanh` | Q | Nhảy nhanh về slot vừa cầm trước đó (kiểu CS) |
 | `mo_buy_menu` | B | Mở/đóng menu mua súng |
 | `mo_bang_diem` | Tab | Xem điểm |
 
