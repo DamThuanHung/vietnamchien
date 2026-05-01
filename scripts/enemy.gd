@@ -7,6 +7,7 @@ const TAM_TAN_CONG = 7.0
 const SAT_THUONG = 12
 const THOI_GIAN_BAN = 1.2
 const TAM_TUAN_TRA = 4.0
+const TAM_GO_BOM_DICH = 2.0
 
 var mau_hien_tai = MAU_TOI_DA
 var nguoi_choi = null
@@ -15,11 +16,12 @@ var dang_song = true
 var vi_tri_xuat_phat: Vector3
 var vi_tri_tuan_tra: Vector3
 var dang_tuan_tra = false
+var bom_dang_go: Node = null
 
 var ten_hien_thi: String = "Địch"
 var so_thu_tu: int = 0
 
-enum TrangThai { DUNG_YEN, TUAN_TRA, TRUY_DUOI, TAN_CONG }
+enum TrangThai { DUNG_YEN, TUAN_TRA, TRUY_DUOI, TAN_CONG, GO_BOM }
 var trang_thai = TrangThai.TUAN_TRA
 
 @onready var nav_agent = $NavigationAgent3D
@@ -75,13 +77,23 @@ func cap_nhat_ai():
 		return
 
 	var khoang_cach = global_position.distance_to(nguoi_choi.global_position)
+	var bom_can_go = _tim_bom_can_go()
 
+	# Ưu tiên: tấn công > gỡ bom > truy đuổi > tuần tra
 	if khoang_cach <= TAM_TAN_CONG:
 		trang_thai = TrangThai.TAN_CONG
+	elif bom_can_go != null:
+		trang_thai = TrangThai.GO_BOM
 	elif khoang_cach <= TAM_PHAT_HIEN:
 		trang_thai = TrangThai.TRUY_DUOI
 	else:
 		trang_thai = TrangThai.TUAN_TRA
+
+	# Nếu rời state GO_BOM giữa chừng — dừng gỡ để không khoá bom
+	if trang_thai != TrangThai.GO_BOM and bom_dang_go != null:
+		if is_instance_valid(bom_dang_go):
+			bom_dang_go.dung_go()
+		bom_dang_go = null
 
 	match trang_thai:
 		TrangThai.TUAN_TRA:
@@ -94,6 +106,37 @@ func cap_nhat_ai():
 			nhin_ve_phia(nguoi_choi.global_position)
 			if co_the_ban:
 				ban_nguoi_choi()
+		TrangThai.GO_BOM:
+			_xu_ly_go_bom(bom_can_go)
+
+func _tim_bom_can_go() -> Node:
+	var cac_bom = get_tree().get_nodes_in_group("bom")
+	for b in cac_bom:
+		if is_instance_valid(b) and not b.da_no:
+			return b
+	return null
+
+func _xu_ly_go_bom(bom):
+	if bom == null or not is_instance_valid(bom):
+		if bom_dang_go != null:
+			bom_dang_go = null
+		return
+	var khoang_cach_bom = global_position.distance_to(bom.global_position)
+	if khoang_cach_bom > TAM_GO_BOM_DICH:
+		# Còn xa bom — đi đến, dừng gỡ nếu trước đó đang gỡ
+		if bom_dang_go != null:
+			if is_instance_valid(bom_dang_go):
+				bom_dang_go.dung_go()
+			bom_dang_go = null
+		di_chuyen_den(bom.global_position)
+	else:
+		# Đã đến nơi — đứng gỡ
+		velocity.x = 0
+		velocity.z = 0
+		nhin_ve_phia(bom.global_position)
+		if bom_dang_go != bom:
+			bom.bat_dau_go()
+			bom_dang_go = bom
 
 func _xu_ly_tuan_tra():
 	var khoang_cach_dich = global_position.distance_to(vi_tri_tuan_tra)
@@ -171,6 +214,9 @@ func _cap_nhat_thanh_mau_vi_tri():
 	thanh_mau_dich.position = vi_tri_2d - Vector2(thanh_mau_dich.size.x * 0.5, 0)
 
 func chet():
+	if bom_dang_go != null and is_instance_valid(bom_dang_go):
+		bom_dang_go.dung_go()
+	bom_dang_go = null
 	dang_song = false
 	if thanh_mau_dich:
 		thanh_mau_dich.visible = false
